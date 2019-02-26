@@ -1,0 +1,58 @@
+{
+  "imooc": {
+    "domain": "www.imooc.com",
+    "titleRegex": "//span[@class=js-title]/html()",
+    "authorRegex": "//div[@class=name_con]/p[@class=name]/a[@class=nick]/html()",
+    "releaseDateRegex": "//div[@class='dc-profile']/div[@class='l']/span[@class='spacer']/text()",
+    "contentRegex": "//div[@class=detail-content]/html()",
+    "targetLinksRegex": "/article/[0-9]{1,10}",
+    "tagRegex": "//div[@class=cat-box]/div[@class=cat-wrap]/a[@class=cat]/html()",
+    "header": [
+      "Host=www.imooc.com",
+      "Referer=https://www.imooc.com"
+    ],
+    "entryUrls": "https://www.imooc.com/u/{uid}/articles?page={curPage}"
+  },
+  "csdn": {
+    "domain": "blog.csdn.net",
+    "titleRegex": "//h1[@class=title-article]/html()",
+    "authorRegex": "//a[@class=follow-nickName]/html()",
+    "releaseDateRegex": "//div[@class='article-bar-top']/span[@class='time']/text()",
+    "contentRegex": "//div[@class=article_content]/html()",
+    "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
+    "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
+    "header": [
+      "Host=blog.csdn.net",
+      "Referer=https://blog.csdn.net/{uid}/article/list/1"
+    ],
+    "entryUrls": "https://blog.csdn.net/{uid}/article/list/{curPage}"
+  },
+  "iteye": {
+    "domain": "{uid}.iteye.com",
+    "titleRegex": "//div[@class=blog_title]/h3/a/html()",
+    "authorRegex": "//div[@id=blog_owner_name]/html()",
+    "releaseDateRegex": "//div[@class=blog_bottom]/ul/li/html()",
+    "contentRegex": "//div[@class=blog_content]/html()",
+    "targetLinksRegex": ".*{uid}\\.iteye\\.com/blog/[0-9]+",
+    "tagRegex": "//div[@class=news_tag]/a/html()",
+    "header": [
+      "Host={uid}.iteye.com",
+      "Referer=http://{uid}.iteye.com/"
+    ],
+    "entryUrls": "http://{uid}.iteye.com/?page={curPage}"
+  },
+  "csblogs": {
+    "domain": "www.cnblogs.com",
+    "titleRegex": "//a[@id=cb_post_title_url]/html()",
+    "authorRegex": "//div[@class=postDesc]/a[1]/html()",
+    "releaseDateRegex": "//span[@id=post-date]/html()",
+    "contentRegex": "//div[@id=cnblogs_post_body]/html()",
+    "targetLinksRegex": ".*www\\.cnblogs\\.com/{uid}/p/[\\w\\d]+\\.html",
+    "tagRegex": "//div[@id=EntryTag]/a/html()",
+    "header": [
+      "Host=www.cnblogs.com",
+      "Referer=https://www.cnblogs.com/"
+    ],
+    "entryUrls": "https://www.cnblogs.com/{uid}/default.html?page={curPage}"
+  }
+}
