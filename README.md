@@ -1,37 +1,27 @@
-# blog-hunter
+<p align="center">
+	<a href="https://gitee.com/yadong.zhang/blog-hunter"><img src="https://images.gitee.com/uploads/images/2019/0227/101358_9973bcd1_784199.png" width="400"></a>
+</p>
+<p align="center">
+	<strong>Blog Hunter <code>/'hʌntɚ/</code>: 博客猎手，基于webMagic的博客爬取工具</strong>
+</p>
+<p align="center">
+	<a target="_blank" href="https://search.maven.org/search?q=g:%22me.zhyd%22%20AND%20a:%22JustAuth%22">
+		<img src="https://img.shields.io/badge/Maven Central-1.0.0-blue.svg" ></img>
+	</a>
+	<a target="_blank" href="https://gitee.com/yadong.zhang/blog-hunter/blob/master/LICENSE">
+		<img src="https://img.shields.io/badge/License-MIT-yellow.svg" ></img>
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
+	</a>
+</p>
 
-#### 介绍
-博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs等各大主流博客平台。博客千万条，版权第一条。狩猎不规范，亲人两行泪。
+-------------------------------------------------------------------------------
 
-#### 软件架构
-软件架构说明
+博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs等各大主流博客平台。**博客千万条，版权第一条。狩猎不规范，亲人两行泪。**
 
-
-#### 安装教程
+#### 快速使用
 
 1. xxxx
 2. xxxx
 3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
