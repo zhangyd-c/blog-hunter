@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://gitee.com/yadong.zhang/blog-hunter"><img src="https://images.gitee.com/uploads/images/2019/0227/101358_9973bcd1_784199.png" width="400"></a>
+	<a href="https://gitee.com/yadong.zhang/blog-hunter"><img src="https://images.gitee.com/uploads/images/2019/0227/101844_0ef06016_784199.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Blog Hunter <code>/'hʌntɚ/</code>: 博客猎手，基于webMagic的博客爬取工具</strong>
