@@ -1,16 +1,13 @@
 package me.zhyd.hunter.util;
 
-import com.alibaba.fastjson.JSONObject;
 import me.zhyd.hunter.config.HunterConfig;
-import me.zhyd.hunter.config.HunterConfigTemplate;
+import me.zhyd.hunter.config.platform.InnerPlatform;
 import me.zhyd.hunter.entity.ImageLink;
-import me.zhyd.hunter.exception.HunterException;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +30,14 @@ public class CommonUtil {
      * @param content     原博客的正文内容
      */
     public static String getRealDescription(String description, String content) {
-        String desc = StringUtils.isNotEmpty(description) ? description.replaceAll("\r\n| ", "") : content.length() > 100 ? content.substring(0, 100) : content;
-        return StringUtils.isEmpty(desc) ? null : Jsoup.clean(desc.trim(), Whitelist.simpleText());
+        if (StringUtils.isNotEmpty(description)) {
+            return description.replaceAll("\r\n| ", "");
+        }
+        if (StringUtils.isNotEmpty(content)) {
+            content = Jsoup.clean(content.trim(), Whitelist.simpleText());
+            return content.length() > 100 ? content.substring(0, 100) : content;
+        }
+        return null;
     }
 
     /**
@@ -54,41 +57,8 @@ public class CommonUtil {
      * @return HunterConfig
      */
     public static HunterConfig getHunterConfig(String url) {
-        if (url == null) {
-            throw new HunterException("URL 不可为空");
-        }
-        boolean isIteye = false;
-        String platform = null;
-        if (PlatformUtil.isCnblogs(url)) {
-            platform = "csblogs";
-        } else if (PlatformUtil.isCsdn(url)) {
-            platform = "csdn";
-        } else if (PlatformUtil.isImooc(url)) {
-            platform = "imooc";
-        } else if (isIteye = PlatformUtil.isIteye(url)) {
-            platform = "iteye";
-        }
-        if (null == platform) {
-            throw new HunterException("暂时不支持该平台：" + url);
-        }
-        JSONObject platformObj = HunterConfigTemplate.INSTANCE.getConfig(platform);
-        String br = "\r\n", header = null;
-        Set<Map.Entry<String, Object>> entries = platformObj.entrySet();
-        for (Map.Entry<String, Object> entry : entries) {
-            if ("header".equals(entry.getKey())) {
-                header = "Host=" + PlatformUtil.getHost(url) + br + "Referer=" + PlatformUtil.getDomain(url);
-                entry.setValue(header);
-            } else if ("entryUrls".equals(entry.getKey())) {
-                entry.setValue(new String[]{url});
-            } else {
-                if (isIteye && "domain".equals(entry.getKey())) {
-                    entry.setValue(PlatformUtil.getHost(url));
-                }
-            }
-        }
-        HunterConfig config = JSONObject.toJavaObject(platformObj, HunterConfig.class);
-        config.setSingle(true);
-        return config;
+        InnerPlatform platform = PlatformUtil.getPlarform(url);
+        return platform.process(url);
     }
 
     /**

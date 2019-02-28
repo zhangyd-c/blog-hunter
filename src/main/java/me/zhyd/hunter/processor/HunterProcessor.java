@@ -118,7 +118,7 @@ public abstract class HunterProcessor implements PageProcessor {
      *
      * @param t 待校验的参数
      */
-    <T> List<String> validateModel(T t) {
+    final <T> List<String> validateModel(T t) {
         Set<ConstraintViolation<T>> constraintViolations = validator.validate(t);
 
         List<String> messageList = new ArrayList<>();
@@ -134,7 +134,7 @@ public abstract class HunterProcessor implements PageProcessor {
      * @param resultItems     自定义Processor处理完后的所有参数
      * @param virtualArticles 爬虫文章集合
      */
-    void process(ResultItems resultItems, List<VirtualArticle> virtualArticles, Hunter spider) {
+    final void process(ResultItems resultItems, List<VirtualArticle> virtualArticles, Hunter spider) {
         if (null == spider) {
             return;
         }

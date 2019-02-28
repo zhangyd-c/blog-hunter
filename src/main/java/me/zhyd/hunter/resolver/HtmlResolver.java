@@ -22,18 +22,28 @@ public class HtmlResolver implements Resolver {
         Html pageHtml = page.getHtml();
         String title = pageHtml.xpath(model.getTitleRegex()).get();
         String source = page.getRequest().getUrl();
-        if (model.isSingle() || (!StringUtils.isEmpty(title) && (!"null".equals(title) && !Arrays.asList(model.getEntryUrls()).contains(source)))) {
+        if (model.isSingle() || (!StringUtils.isEmpty(title) && (!"null".equals(title) && !model.getEntryUrls().contains(source)))) {
             page.putField("title", title);
             page.putField("source", source);
-            page.putField("releaseDate", pageHtml.xpath(model.getReleaseDateRegex()).get());
-            page.putField("author", pageHtml.xpath(model.getAuthorRegex()).get());
-            page.putField("content", pageHtml.xpath(model.getContentRegex()).get());
-            page.putField("tags", pageHtml.xpath(model.getTagRegex()).all());
-            page.putField("description", pageHtml.xpath(model.getDescriptionRegex()).get());
-            page.putField("keywords", pageHtml.xpath(model.getKeywordsRegex()).get());
+            this.put(page, pageHtml, "releaseDate", model.getReleaseDateRegex());
+            this.put(page, pageHtml, "author", model.getAuthorRegex());
+            this.put(page, pageHtml, "content", model.getContentRegex());
+            this.put(page, pageHtml, "tags", model.getTagRegex());
+            this.put(page, pageHtml, "description", model.getDescriptionRegex());
+            this.put(page, pageHtml, "keywords", model.getKeywordsRegex());
         }
         if (!model.isSingle()) {
             page.addTargetRequests(page.getHtml().links().regex(model.getTargetLinksRegex()).all());
+        }
+    }
+
+    private void put(Page page, Html pageHtml, String key, String regex) {
+        if (StringUtils.isNotEmpty(regex)) {
+            if(key.equals("tags")) {
+                page.putField(key, pageHtml.xpath(regex).all());
+                return;
+            }
+            page.putField(key, pageHtml.xpath(regex).get());
         }
     }
 }

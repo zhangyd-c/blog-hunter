@@ -18,10 +18,16 @@
 
 -------------------------------------------------------------------------------
 
-博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs等各大主流博客平台。**博客千万条，版权第一条。狩猎不规范，亲人两行泪。**
+博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。**博客千万条，版权第一条。狩猎不规范，亲人两行泪。**
 
 #### 快速使用
 
 1. xxxx
 2. xxxx
 3. xxxx
+
+#### 解决webMagic爬取https站点报错的问题
+
+[http://www.cnblogs.com/vcmq/p/9484418.html](http://www.cnblogs.com/vcmq/p/9484418.html)
+
+[https://github.com/code4craft/webmagic/issues/701](https://github.com/code4craft/webmagic/issues/701)

@@ -1,5 +1,9 @@
 package me.zhyd.hunter.util;
 
+import me.zhyd.hunter.config.platform.InnerPlatform;
+import me.zhyd.hunter.config.platform.Platform;
+import me.zhyd.hunter.exception.HunterException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,36 +24,17 @@ public class PlatformUtil {
         return res.replace("https://", "").replace("http://", "");
     }
 
-    public static boolean isImooc(String url) {
-        String res = getDomain(url);
-        if (null == res) {
-            return false;
+    public static InnerPlatform getPlarform(String url) {
+        Platform platform = Platform.getPlatformByUrl(url);
+        if(null == platform) {
+            throw new HunterException("暂时不支持该平台：" + url);
         }
-        return res.contains("imooc.com");
-    }
-
-    public static boolean isCsdn(String url) {
-        String res = getDomain(url);
-        if (null == res) {
-            return false;
+        Class clazz = platform.getClazz();
+        try {
+            return (InnerPlatform) clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new HunterException(String.format("无法获取InnerPlatform实例，url: %s", url), e);
         }
-        return res.contains("csdn.net");
-    }
-
-    public static boolean isIteye(String url) {
-        String res = getDomain(url);
-        if (null == res) {
-            return false;
-        }
-        return res.contains("iteye.com");
-    }
-
-    public static boolean isCnblogs(String url) {
-        String res = getDomain(url);
-        if (null == res) {
-            return false;
-        }
-        return res.contains("cnblogs.com");
     }
 
     public static String getDomain(String url) {

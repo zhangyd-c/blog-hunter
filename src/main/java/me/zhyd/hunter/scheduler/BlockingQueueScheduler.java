@@ -25,7 +25,7 @@ public class BlockingQueueScheduler extends DuplicateRemovedScheduler implements
     public BlockingQueueScheduler(HunterConfig model) {
         if (ExitWayEnum.URL_COUNT.toString().equals(model.getExitWay())) {
             // 实际抓取的url数量包括入口页面
-            this.realUrlCount = model.getCount() + model.getEntryUrls().length;
+            this.realUrlCount = model.getCount() + model.getEntryUrls().size();
         }
     }
 

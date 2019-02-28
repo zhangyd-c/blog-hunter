@@ -7,6 +7,7 @@
     "contentRegex": "//div[@class=detail-content]/html()",
     "targetLinksRegex": "/article/[0-9]{1,10}",
     "tagRegex": "//div[@class=cat-box]/div[@class=cat-wrap]/a[@class=cat]/html()",
+    "descriptionRegex": "//meta[@name=Description]/@content",
     "header": [
       "Host=www.imooc.com",
       "Referer=https://www.imooc.com"
@@ -17,8 +18,8 @@
     "domain": "blog.csdn.net",
     "titleRegex": "//h1[@class=title-article]/html()",
     "authorRegex": "//a[@class=follow-nickName]/html()",
-    "releaseDateRegex": "//div[@class='article-bar-top']/span[@class='time']/text()",
-    "contentRegex": "//div[@class=article_content]/html()",
+    "releaseDateRegex": "//div[@class=article-bar-top]/span[@class=time]/html()",
+    "contentRegex": "//div[@id=content_views]/html()",
     "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
     "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
     "header": [
@@ -31,8 +32,8 @@
     "domain": "{uid}.iteye.com",
     "titleRegex": "//div[@class=blog_title]/h3/a/html()",
     "authorRegex": "//div[@id=blog_owner_name]/html()",
-    "releaseDateRegex": "//div[@class=blog_bottom]/ul/li/html()",
-    "contentRegex": "//div[@class=blog_content]/html()",
+    "releaseDateRegex": "//div[@class=blog_bottom]/ul/li[1]/html()",
+    "contentRegex": "//div[@class=iteye-blog-content-contain]/html()",
     "targetLinksRegex": ".*{uid}\\.iteye\\.com/blog/[0-9]+",
     "tagRegex": "//div[@class=news_tag]/a/html()",
     "header": [
@@ -41,7 +42,7 @@
     ],
     "entryUrls": "http://{uid}.iteye.com/?page={curPage}"
   },
-  "csblogs": {
+  "cnblogs": {
     "domain": "www.cnblogs.com",
     "titleRegex": "//a[@id=cb_post_title_url]/html()",
     "authorRegex": "//div[@class=postDesc]/a[1]/html()",
@@ -49,10 +50,40 @@
     "contentRegex": "//div[@id=cnblogs_post_body]/html()",
     "targetLinksRegex": ".*www\\.cnblogs\\.com/{uid}/p/[\\w\\d]+\\.html",
     "tagRegex": "//div[@id=EntryTag]/a/html()",
+    "descriptionRegex": "//meta[@property=\"og:description\"]/@content",
     "header": [
       "Host=www.cnblogs.com",
       "Referer=https://www.cnblogs.com/"
     ],
     "entryUrls": "https://www.cnblogs.com/{uid}/default.html?page={curPage}"
+  },
+  "juejin": {
+    "domain": "juejin.im",
+    "titleRegex": "//h1[@class=article-title]/html()",
+    "authorRegex": "//div[@itemprop=author]/meta[@itemprop=\"name\"]/@content",
+    "releaseDateRegex": "//meta[@itemprop=\"datePublished\"]/@content",
+    "contentRegex": "//div[@class=article-content]/html()",
+    "targetLinksRegex": ".*juejin\\.im/post/[\\w\\d]+",
+    "tagRegex": "//div[@class=tag-title]/html()",
+    "header": [
+      "Host=juejin.im",
+      "Referer=https://juejin.im"
+    ],
+    "entryUrls": "https://juejin.im/user/{uid}/posts"
+  },
+  "v2ex": {
+    "domain": "v2ex.com",
+    "titleRegex": "//*[@id=Main]/div[@class=box]/div[@class=header]/h1/html()",
+    "authorRegex": "//*[@id=Main]/div[@class=box]/div[@class=header]/small/a/html()",
+    "releaseDateRegex": "//meta[@property=\"article:published_time\"]/@content",
+    "contentRegex": "//div[@class=markdown_body]/html()",
+    "targetLinksRegex": ".*www\\.v2ex\\.com/t/[\\w\\d]+",
+    "tagRegex": "//*[@id=\"Main\"]/div[6]/div/a/html()",
+    "descriptionRegex": "//meta[@property=\"og:description\"]/@content",
+    "header": [
+      "Host=www.v2ex.com",
+      "Referer=https://www.v2ex.com"
+    ],
+    "entryUrls": "https://www.v2ex.com/go/programmer?p={curPage}"
   }
 }

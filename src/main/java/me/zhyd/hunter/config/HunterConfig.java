@@ -1,5 +1,6 @@
 package me.zhyd.hunter.config;
 
+import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
 import me.zhyd.hunter.enums.ExitWayEnum;
 import me.zhyd.hunter.enums.UserAgentEnum;
@@ -10,10 +11,7 @@ import us.codecraft.webmagic.proxy.Proxy;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -23,6 +21,10 @@ import java.util.Map;
  */
 @Data
 public class HunterConfig {
+    /**
+     * 是否抓取的单个文章
+     */
+    public boolean single;
     @NotNull(message = "必须指定标题抓取规则(xpath)")
     private String titleRegex;
     @NotNull(message = "必须指定内容抓取规则(xpath)")
@@ -34,8 +36,8 @@ public class HunterConfig {
     @NotNull(message = "必须指定待抓取的url抓取规则(xpath)")
     private String targetLinksRegex;
     private String tagRegex;
-    private String keywordsRegex = "//meta [@name=keywords]/@content";
-    private String descriptionRegex = "//meta [@name=description]/@content";
+    private String keywordsRegex = "//meta[@name=keywords]/@content";
+    private String descriptionRegex = "//meta[@name=description]/@content";
     @NotNull(message = "必须指定网站根域名")
     private String domain;
     private String charset = "utf8";
@@ -61,7 +63,7 @@ public class HunterConfig {
      * 抓取入口地址
      */
 //    @NotNull(message = "必须指定待抓取的网址")
-    private String[] entryUrls;
+    private List<String> entryUrls;
     /**
      * 退出方式{DURATION:爬虫持续的时间,URL_COUNT:抓取到的url数量}
      */
@@ -87,10 +89,6 @@ public class HunterConfig {
      * 是否开启自动代理，开启时将会自动获取代理ip
      */
     private ProxyType proxyType = ProxyType.CUSTOM;
-    /**
-     * 是否抓取的单个文章
-     */
-    public boolean single;
 
     public String getUid() {
         return uid;
@@ -166,14 +164,20 @@ public class HunterConfig {
         return this;
     }
 
-    public HunterConfig setEntryUrls(String[] entryUrls) {
+    public HunterConfig setEntryUrls(List<String> entryUrls) {
         this.entryUrls = entryUrls;
         return this;
     }
 
     public HunterConfig setEntryUrls(String entryUrls) {
         if (StringUtils.isNotEmpty(entryUrls)) {
-            this.entryUrls = entryUrls.split("\r\n");
+            if (entryUrls.startsWith("[")) {
+                entryUrls = entryUrls.substring(1);
+            }
+            if (entryUrls.endsWith("]")) {
+                entryUrls = entryUrls.substring(0, entryUrls.length() - 1);
+            }
+            this.entryUrls = Arrays.asList(entryUrls.split("\r\n"));
         }
         return this;
     }

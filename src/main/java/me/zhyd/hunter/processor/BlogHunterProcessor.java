@@ -5,8 +5,8 @@ import me.zhyd.hunter.config.HunterConfig;
 import me.zhyd.hunter.entity.VirtualArticle;
 import me.zhyd.hunter.scheduler.BlockingQueueScheduler;
 import me.zhyd.hunter.util.ResponseWriterUtil;
+import me.zhyd.hunter.downloader.HttpClientDownloader;
 import org.apache.commons.collections.CollectionUtils;
-import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.proxy.Proxy;
 import us.codecraft.webmagic.proxy.SimpleProxyProvider;
 
@@ -67,9 +67,10 @@ public class BlogHunterProcessor extends HunterProcessor {
         CopyOnWriteArrayList<VirtualArticle> virtualArticles = new CopyOnWriteArrayList<>();
         Hunter spider = Hunter.create(this, config, uuid);
 
-        spider.addUrl(config.getEntryUrls())
+        spider.addUrl(config.getEntryUrls().toArray(new String[0]))
                 .setScheduler(new BlockingQueueScheduler(config))
                 .addPipeline((resultItems, task) -> this.process(resultItems, virtualArticles, spider))
+                .setDownloader(new HttpClientDownloader())
                 .thread(config.getThreadCount());
 
         //设置抓取代理IP
