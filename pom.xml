@@ -15,14 +15,14 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE</url>
+            <url>https://gitee.com/yadong.zhang/blog-hunter/blob/master/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <connection>scm:git:https://gitee.com/yadong.zhang/JustAuth.git</connection>
-        <developerConnection>scm:git:https://gitee.com/yadong.zhang/JustAuth.git</developerConnection>
-        <url>https://gitee.com/yadong.zhang/JustAuth</url>
+        <connection>scm:git:https://gitee.com/yadong.zhang/blog-hunter.git</connection>
+        <developerConnection>scm:git:https://gitee.com/yadong.zhang/blog-hunter.git</developerConnection>
+        <url>https://gitee.com/yadong.zhang/blog-hunter</url>
     </scm>
 
     <developers>

@@ -180,7 +180,7 @@ public class QuickStartTest {
     }
 
     /**
-     * 测试抓取掘金的文章列表
+     * 测试抓取v2ex的文章列表
      */
     @Test
     public void v2exTest() {
@@ -191,6 +191,53 @@ public class QuickStartTest {
                 .setExitWay(ExitWayEnum.DURATION)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
                 .setCount(120);
+        HunterProcessor hunter = new BlogHunterProcessor(config);
+        CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        if (null == list || list.isEmpty()) {
+            System.out.println("没获取到数据");
+        } else {
+            this.check(list);
+        }
+    }
+
+    /**
+     * 测试抓取v2ex的文章列表，自定义抓取规则
+     */
+    @Test
+    public void v2exTest2() {
+        HunterConfig config = HunterConfigContext.getHunterConfig(Platform.V2EX);
+        config.setEntryUrls("https://www.v2ex.com/member/Evernote")
+                .addEntryUrl("https://www.v2ex.com/member/ityouknow")
+                // 设置程序退出的方式
+                .setExitWay(ExitWayEnum.DURATION)
+                // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
+                .setCount(120);
+        HunterProcessor hunter = new BlogHunterProcessor(config);
+        CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        if (null == list || list.isEmpty()) {
+            System.out.println("没获取到数据");
+        } else {
+            this.check(list);
+        }
+    }
+
+    /**
+     * 高级使用
+     */
+    @Test
+    public void v2exTest3() {
+        HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
+        config.setEntryUrls("https://www.imooc.com/u/1175248/articles")
+                .addEntryUrl("https://www.imooc.com/u/479481/articles")
+                .addEntryUrl("https://www.imooc.com/u/6321116/articles")
+                .addEntryUrl("https://www.imooc.com/u/1879927/articles")
+                // 设置程序退出的方式
+                .setExitWay(ExitWayEnum.DURATION)
+                // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
+                .setCount(120)
+                .setSleepTime(100)
+                .setRetryTimes(3)
+                .setThreadCount(10);
         HunterProcessor hunter = new BlogHunterProcessor(config);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
         if (null == list || list.isEmpty()) {

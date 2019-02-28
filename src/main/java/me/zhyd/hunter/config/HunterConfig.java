@@ -4,6 +4,7 @@ import lombok.Data;
 import me.zhyd.hunter.entity.Cookie;
 import me.zhyd.hunter.enums.ExitWayEnum;
 import me.zhyd.hunter.enums.UserAgentEnum;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.proxy.Proxy;
 
@@ -43,8 +44,8 @@ public class HunterConfig {
     /**
      * 每次爬取页面时的等待时间
      */
-    @Max(value = 5000, message = "线程间隔时间最大只能指定为5000毫秒")
-    @Min(value = 1000, message = "线程间隔时间最小只能指定为1000毫秒")
+    @Max(value = 10000, message = "线程等待时间不可大于10000毫秒")
+    @Min(value = 100, message = "线程等待时间不可小于100毫秒")
     private int sleepTime = 1000;
     /**
      * 抓取失败时重试的次数
@@ -55,7 +56,7 @@ public class HunterConfig {
     /**
      * 线程个数
      */
-    @Max(value = 5, message = "最多只能开启5个线程（线程数量越多越耗性能）")
+    @Max(value = 10, message = "最多只能开启10个线程（请谨慎使用）")
     @Min(value = 1, message = "至少要开启1个线程")
     private int threadCount = 1;
     /**
@@ -179,8 +180,18 @@ public class HunterConfig {
             if (entryUrls.endsWith("]")) {
                 entryUrls = entryUrls.substring(0, entryUrls.length() - 1);
             }
-            this.entryUrls = Arrays.asList(entryUrls.split("\r\n"));
+            List<String> list = Arrays.asList(entryUrls.split("\r\n"));
+            this.entryUrls = new LinkedList<>();
+            this.entryUrls.addAll(list);
         }
+        return this;
+    }
+
+    public HunterConfig addEntryUrl(String url) {
+        if (CollectionUtils.isEmpty(this.entryUrls)) {
+            this.entryUrls = new LinkedList<>();
+        }
+        this.entryUrls.add(url);
         return this;
     }
 
