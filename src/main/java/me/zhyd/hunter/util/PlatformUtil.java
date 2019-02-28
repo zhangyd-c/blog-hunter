@@ -26,14 +26,21 @@ public class PlatformUtil {
 
     public static InnerPlatform getPlarform(String url) {
         Platform platform = Platform.getPlatformByUrl(url);
-        if(null == platform) {
+        if (null == platform) {
             throw new HunterException("暂时不支持该平台：" + url);
+        }
+        return getPlarform(platform);
+    }
+
+    public static InnerPlatform getPlarform(Platform platform) {
+        if (null == platform) {
+            throw new HunterException("无效的博客平台");
         }
         Class clazz = platform.getClazz();
         try {
             return (InnerPlatform) clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new HunterException(String.format("无法获取InnerPlatform实例，url: %s", url), e);
+            throw new HunterException(String.format("无法获取InnerPlatform实例，url: %s", platform.getHost()), e);
         }
     }
 

@@ -2,10 +2,7 @@ package me.zhyd.hunter.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -30,25 +27,6 @@ public class VirtualArticle {
     private List<String> tags;
 
     private Set<ImageLink> imageLinks;
-
-    public VirtualArticle(String title, String content, String author, String releaseDate, String source, String description, String keywords, List<String> tags) {
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.source = source;
-        if (CollectionUtils.isEmpty(this.tags = tags)) {
-            this.tags = Collections.singletonList("其他");
-        }
-        if (StringUtils.isEmpty(this.description = description) || "null".equalsIgnoreCase(this.description)) {
-            this.description = title;
-        }
-        if (StringUtils.isEmpty(this.keywords = keywords) || "null".equalsIgnoreCase(this.keywords)) {
-            this.keywords = title;
-        }
-    }
-
-    public VirtualArticle() {
-    }
 
     public VirtualArticle setTitle(String title) {
         this.title = title;

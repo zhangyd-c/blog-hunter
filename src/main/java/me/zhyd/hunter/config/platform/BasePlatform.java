@@ -5,7 +5,6 @@ import me.zhyd.hunter.config.HunterConfig;
 import me.zhyd.hunter.config.HunterConfigTemplate;
 import me.zhyd.hunter.util.PlatformUtil;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +28,7 @@ public abstract class BasePlatform implements InnerPlatform {
         String host = PlatformUtil.getHost(url);
         String domain = PlatformUtil.getDomain(url);
 
-        JSONObject platformObj = HunterConfigTemplate.INSTANCE.getConfig(platform);
+        JSONObject platformObj = HunterConfigTemplate.getConfig(platform);
         String br = "\r\n", header = null;
         Set<Map.Entry<String, Object>> entries = platformObj.entrySet();
         for (Map.Entry<String, Object> entry : entries) {

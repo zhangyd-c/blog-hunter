@@ -5,6 +5,7 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.hunter.Hunter;
 import me.zhyd.hunter.config.HunterConfig;
+import me.zhyd.hunter.config.HunterConfigContext;
 import me.zhyd.hunter.config.HunterDateDeserializer;
 import me.zhyd.hunter.entity.Cookie;
 import me.zhyd.hunter.entity.VirtualArticle;
@@ -12,8 +13,7 @@ import me.zhyd.hunter.resolver.HtmlResolver;
 import me.zhyd.hunter.resolver.JsonResolver;
 import me.zhyd.hunter.resolver.Resolver;
 import me.zhyd.hunter.util.CommonUtil;
-import me.zhyd.hunter.util.DateUtil;
-import me.zhyd.hunter.util.ResponseWriterUtil;
+import me.zhyd.hunter.util.HunterPrintWriter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +39,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public abstract class HunterProcessor implements PageProcessor {
     protected HunterConfig config;
-    protected ResponseWriterUtil writer = new ResponseWriterUtil();
+    protected HunterPrintWriter writer = new HunterPrintWriter();
     protected String uuid;
     private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -54,8 +54,8 @@ public abstract class HunterProcessor implements PageProcessor {
         this(m, null, uuid);
     }
 
-    HunterProcessor(HunterConfig m, ResponseWriterUtil writer, String uuid) {
-        this.config = m;
+    HunterProcessor(HunterConfig config, HunterPrintWriter writer, String uuid) {
+        this.config = HunterConfigContext.parseConfig(config);
         this.uuid = uuid;
         if (null != writer) {
             this.writer = writer;
@@ -63,7 +63,7 @@ public abstract class HunterProcessor implements PageProcessor {
     }
 
     HunterProcessor(String url, boolean convertImage) {
-        this(CommonUtil.getHunterConfig(url).setConvertImg(convertImage));
+        this(HunterConfigContext.getHunterConfig(url).setConvertImg(convertImage));
     }
 
     /**
@@ -150,6 +150,9 @@ public abstract class HunterProcessor implements PageProcessor {
                 .setKeywords(CommonUtil.getRealKeywords(virtualArticle.getKeywords()));
         if (this.config.isConvertImg()) {
             virtualArticle.setImageLinks(CommonUtil.getAllImageLink(virtualArticle.getContent()));
+        }
+        if (CollectionUtils.isEmpty(virtualArticle.getTags())) {
+            virtualArticle.setTags(Collections.singletonList("其他"));
         }
         virtualArticles.add(virtualArticle);
         writer.print(String.format("[ hunter ]  <a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", virtualArticle.getSource(), title, virtualArticle.getAuthor(), virtualArticle.getReleaseDate()));

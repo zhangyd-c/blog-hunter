@@ -1,10 +1,9 @@
 package me.zhyd.hunter.config;
 
-import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
+import me.zhyd.hunter.entity.Cookie;
 import me.zhyd.hunter.enums.ExitWayEnum;
 import me.zhyd.hunter.enums.UserAgentEnum;
-import me.zhyd.hunter.entity.Cookie;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.proxy.Proxy;
 
@@ -89,6 +88,9 @@ public class HunterConfig {
      * 是否开启自动代理，开启时将会自动获取代理ip
      */
     private ProxyType proxyType = ProxyType.CUSTOM;
+
+    public HunterConfig() {
+    }
 
     public String getUid() {
         return uid;
@@ -189,6 +191,7 @@ public class HunterConfig {
 
     public HunterConfig setExitWay(ExitWayEnum exitWay) {
         this.exitWay = exitWay.toString();
+        this.count = exitWay.getDefaultCount();
         return this;
     }
 

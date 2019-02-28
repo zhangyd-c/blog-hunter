@@ -8,7 +8,7 @@ package me.zhyd.hunter.enums;
  */
 public enum ExitWayEnum {
     /**
-     * 默认方式,直到程序将所有url抓取完成才会退出
+     * 默认方式,直到将所有匹配到的url抓取完成才会退出
      */
     DEFAULT("默认", 0),
     /*

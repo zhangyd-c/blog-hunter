@@ -4,7 +4,7 @@ import me.zhyd.hunter.Hunter;
 import me.zhyd.hunter.config.HunterConfig;
 import me.zhyd.hunter.entity.VirtualArticle;
 import me.zhyd.hunter.scheduler.BlockingQueueScheduler;
-import me.zhyd.hunter.util.ResponseWriterUtil;
+import me.zhyd.hunter.util.HunterPrintWriter;
 import me.zhyd.hunter.downloader.HttpClientDownloader;
 import org.apache.commons.collections.CollectionUtils;
 import us.codecraft.webmagic.proxy.Proxy;
@@ -44,7 +44,7 @@ public class BlogHunterProcessor extends HunterProcessor {
      * @param writer
      * @param uuid
      */
-    public BlogHunterProcessor(HunterConfig config, ResponseWriterUtil writer, String uuid) {
+    public BlogHunterProcessor(HunterConfig config, HunterPrintWriter writer, String uuid) {
         super(config, writer, uuid);
     }
 

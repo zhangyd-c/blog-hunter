@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.PrintWriter;
 
 /**
- * 系统输出工具类，当传入PrintWriter时可以将字符流输出到页面
+ * 系统输出工具类，当传入PrintWriter时可以将字符流输出到页面， 默认为log日志输出
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -14,18 +14,25 @@ import java.io.PrintWriter;
  * @since 1.0
  */
 @Slf4j
-public class ResponseWriterUtil {
+public class HunterPrintWriter {
+
+    private String jsoupCallback = "<script>parent.printMessage('%s');</script>";
 
     private PrintWriter writer;
 
-    public ResponseWriterUtil() {
+    public HunterPrintWriter() {
     }
 
-    public ResponseWriterUtil(PrintWriter writer) {
+    /**
+     * @param writer        输出流
+     * @param jsoupCallback 用于页面打印日志的jsoup回调函数，默认为使用iframe方式打开，回调函数为‘parent.printMessage’。具体使用方法，可参考帮助文档
+     */
+    public HunterPrintWriter(PrintWriter writer, String jsoupCallback) {
         this.writer = writer;
+        this.jsoupCallback = jsoupCallback;
     }
 
-    public ResponseWriterUtil print(String... msgs) {
+    public HunterPrintWriter print(String... msgs) {
         if (null == writer) {
             for (String msg : msgs) {
                 log.info(msg);
@@ -34,8 +41,8 @@ public class ResponseWriterUtil {
         }
         for (String msg : msgs) {
             log.info(msg);
-            writer.print("<script>parent.printMessage('" + msg + "');</script>");
             if (null != writer) {
+                writer.print(String.format(jsoupCallback, msg));
                 writer.flush();
             }
         }

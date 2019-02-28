@@ -17,6 +17,10 @@ public class IteyePlatform extends BasePlatform {
 
     @Override
     public HunterConfig process(String url) {
-        return this.get(url);
+        HunterConfig config = this.get(url);
+        String domain = config.getDomain();
+        String uid = domain.split("\\.")[0];
+        config.setUid(uid);
+        return config;
     }
 }

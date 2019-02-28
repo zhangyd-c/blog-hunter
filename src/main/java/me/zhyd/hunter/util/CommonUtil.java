@@ -1,7 +1,5 @@
 package me.zhyd.hunter.util;
 
-import me.zhyd.hunter.config.HunterConfig;
-import me.zhyd.hunter.config.platform.InnerPlatform;
 import me.zhyd.hunter.entity.ImageLink;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -48,17 +46,6 @@ public class CommonUtil {
     public static String getRealKeywords(String keywords) {
         String keys = StringUtils.isNotEmpty(keywords) && !"null".equals(keywords) ? keywords.trim().replaceAll(" +|，", ",").replaceAll(",,", ",") : null;
         return StringUtils.isEmpty(keys) ? null : Jsoup.clean(keys, Whitelist.simpleText());
-    }
-
-    /**
-     * 抓取单个文章时可用；
-     *
-     * @param url 待抓取的文章连接
-     * @return HunterConfig
-     */
-    public static HunterConfig getHunterConfig(String url) {
-        InnerPlatform platform = PlatformUtil.getPlarform(url);
-        return platform.process(url);
     }
 
     /**

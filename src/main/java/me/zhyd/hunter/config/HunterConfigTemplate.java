@@ -15,27 +15,27 @@ import java.nio.charset.Charset;
  * @date 2019/2/26 15:51
  * @since 1.8
  */
-public enum HunterConfigTemplate {
+public class HunterConfigTemplate {
 
-    INSTANCE;
+    public static JSONObject configTemplate;
 
-    private static JSONObject configTemplate;
-    String configFileName = "HunterConfig.json";
-
-    public JSONObject getConfig(String type) {
-        if (null == configTemplate) {
-            this.readByFile();
-        }
-        if (configTemplate.containsKey(type)) {
-            return configTemplate.getJSONObject(type);
-        }
-        throw new HunterException("[hunter] 暂不支持该平台[" + type + "]");
+    static {
+        HunterConfigTemplate configTemplate = new HunterConfigTemplate();
+        configTemplate.init();
     }
 
-    private void readByFile() {
+    public static JSONObject getConfig(String platform) {
+        if (configTemplate.containsKey(platform)) {
+            return configTemplate.getJSONObject(platform);
+        }
+        throw new HunterException("[hunter] 暂不支持该平台[" + platform + "]");
+    }
+
+    private void init() {
+        String configFileName = "HunterConfig.json";
         URL url = this.getClass().getClassLoader().getResource(configFileName);
         if (null == url) {
-            throw new HunterException("[hunter] 请检查`src/main/resources`下是否存在" + this.configFileName);
+            throw new HunterException("[hunter] 请检查`src/main/resources`下是否存在" + configFileName);
         }
         File configFile = new File(url.getPath());
         configTemplate = JSONObject.parseObject(FileReader.create(configFile, Charset.forName("UTF-8")).readString());
