@@ -91,7 +91,7 @@ public abstract class HunterProcessor implements PageProcessor {
                 .setUserAgent(config.getUa())
                 .setSleepTime(config.getSleepTime())
                 .setRetryTimes(config.getRetryTimes())
-                .setCycleRetryTimes(config.getRetryTimes());
+                .setCycleRetryTimes(config.getCycleRetryTimes());
 
         //添加抓包获取的cookie信息
         List<Cookie> cookies = config.getCookies();

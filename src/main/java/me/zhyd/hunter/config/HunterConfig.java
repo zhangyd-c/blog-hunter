@@ -54,6 +54,12 @@ public class HunterConfig {
     @Min(value = 1, message = "抓取失败时最少只能重试1次")
     private int retryTimes = 2;
     /**
+     * 抓取失败时重试的次数
+     */
+    @Max(value = 5, message = "最多支持5次失败循环重试")
+    @Min(value = 1, message = "最少支持1次失败循环重试")
+    private int cycleRetryTimes = 2;
+    /**
      * 线程个数
      */
     @Max(value = 10, message = "最多只能开启10个线程（请谨慎使用）")
@@ -78,11 +84,11 @@ public class HunterConfig {
     private String uid;
     private boolean onlyThisAuthor;
     /**
-     * 保留字段，针对ajax渲染的页面
+     * 保留字段，针对ajax渲染的页面，暂时不支持
      */
     private Boolean ajaxRequest = false;
     /**
-     * 是否转存图片
+     * 是否转存图片，当选择true时会自动过滤原文中的img链接，调用端可选择将图片下载后替换掉原来的图片
      */
     private boolean convertImg = false;
     private List<Proxy> proxyList = new ArrayList<>();
@@ -161,6 +167,11 @@ public class HunterConfig {
 
     public HunterConfig setRetryTimes(int retryTimes) {
         this.retryTimes = retryTimes;
+        return this;
+    }
+
+    public HunterConfig setCycleRetryTimes(int cycleRetryTimes) {
+        this.cycleRetryTimes = cycleRetryTimes;
         return this;
     }
 

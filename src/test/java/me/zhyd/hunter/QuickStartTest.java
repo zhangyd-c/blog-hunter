@@ -227,6 +227,7 @@ public class QuickStartTest {
     @Test
     public void v2exTest3() {
         HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
+        // set会重置，add会追加
         config.setEntryUrls("https://www.imooc.com/u/1175248/articles")
                 .addEntryUrl("https://www.imooc.com/u/479481/articles")
                 .addEntryUrl("https://www.imooc.com/u/6321116/articles")
@@ -235,9 +236,13 @@ public class QuickStartTest {
                 .setExitWay(ExitWayEnum.DURATION)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
                 .setCount(120)
-                // 每次
+                // 每次抓取间隔的时间
                 .setSleepTime(100)
+                // 失败重试次数
                 .setRetryTimes(3)
+                // 针对抓取失败的链接 循环重试次数
+                .setCycleRetryTimes(3)
+                // 开启的线程数
                 .setThreadCount(10);
         HunterProcessor hunter = new BlogHunterProcessor(config);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
