@@ -24,9 +24,9 @@ public class HunterConfigTemplate {
         configTemplate.init();
     }
 
-    public static JSONObject getConfig(String platform) {
+    public static String getConfig(String platform) {
         if (configTemplate.containsKey(platform)) {
-            return configTemplate.getJSONObject(platform);
+            return configTemplate.getString(platform);
         }
         throw new HunterException("[hunter] 暂不支持该平台[" + platform + "]");
     }

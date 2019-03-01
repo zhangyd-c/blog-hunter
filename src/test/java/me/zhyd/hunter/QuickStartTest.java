@@ -41,25 +41,25 @@ public class QuickStartTest {
                 log.error("    ERROR | 内容为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getAuthor())) {
-                log.error("    ERROR |作者为空");
+                log.error("    ERROR | 作者为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getSource())) {
-                log.error("    ERROR |源站为空");
+                log.error("    ERROR | 源站为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getDescription())) {
-                log.error("    ERROR |Description为空");
+                log.error("    ERROR | Description为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getKeywords())) {
-                log.error("    ERROR |Keywords内容为空");
+                log.error("    ERROR | Keywords内容为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getTitle())) {
-                log.error("    ERROR |标题为空");
+                log.error("    ERROR | 标题为空");
             }
             if (null == virtualArticle.getReleaseDate()) {
-                log.error("    ERROR |发布日期为空");
+                log.error("    ERROR | 发布日期为空");
             }
             if (CollectionUtils.isEmpty(virtualArticle.getTags())) {
-                log.error("    ERROR |标签为空");
+                log.error("    ERROR | 标签为空");
             }
         }
     }
@@ -235,6 +235,7 @@ public class QuickStartTest {
                 .setExitWay(ExitWayEnum.DURATION)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
                 .setCount(120)
+                // 每次
                 .setSleepTime(100)
                 .setRetryTimes(3)
                 .setThreadCount(10);

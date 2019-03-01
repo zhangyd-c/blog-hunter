@@ -88,8 +88,10 @@ public abstract class HunterProcessor implements PageProcessor {
         Site site = Site.me()
                 .setCharset(config.getCharset())
                 .setDomain(config.getDomain())
+                .setUserAgent(config.getUa())
                 .setSleepTime(config.getSleepTime())
-                .setRetryTimes(config.getRetryTimes());
+                .setRetryTimes(config.getRetryTimes())
+                .setCycleRetryTimes(config.getRetryTimes());
 
         //添加抓包获取的cookie信息
         List<Cookie> cookies = config.getCookies();
@@ -140,9 +142,9 @@ public abstract class HunterProcessor implements PageProcessor {
         }
         Map<String, Object> map = resultItems.getAll();
         String title = String.valueOf(map.get("title"));
-        if (StringUtils.isEmpty(title) || "null".equals(title.trim())) {
+        /*if (StringUtils.isEmpty(title) || "null".equals(title.trim())) {
             return;
-        }
+        }*/
         ParserConfig jcParserConfig = new ParserConfig();
         jcParserConfig.putDeserializer(Date.class, HunterDateDeserializer.instance);
         VirtualArticle virtualArticle = JSON.parseObject(JSON.toJSONString(map), VirtualArticle.class, jcParserConfig, JSON.DEFAULT_PARSER_FEATURE);

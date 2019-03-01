@@ -28,7 +28,8 @@ public abstract class BasePlatform implements InnerPlatform {
         String host = PlatformUtil.getHost(url);
         String domain = PlatformUtil.getDomain(url);
 
-        JSONObject platformObj = HunterConfigTemplate.getConfig(platform);
+        String platformConfig = HunterConfigTemplate.getConfig(platform);
+        JSONObject platformObj = JSONObject.parseObject(platformConfig);
         String br = "\r\n", header = null;
         Set<Map.Entry<String, Object>> entries = platformObj.entrySet();
         for (Map.Entry<String, Object> entry : entries) {

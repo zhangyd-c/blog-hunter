@@ -38,7 +38,8 @@ public class HunterConfigContext {
      * @return HunterConfig
      */
     public static HunterConfig getHunterConfig(Platform platform) {
-        JSONObject platformObj = HunterConfigTemplate.getConfig(platform.getPlatform());
+        String platformConfig = HunterConfigTemplate.getConfig(platform.getPlatform());
+        JSONObject platformObj = JSONObject.parseObject(platformConfig);
         String br = "\r\n";
         Set<Map.Entry<String, Object>> entries = platformObj.entrySet();
         for (Map.Entry<String, Object> entry : entries) {

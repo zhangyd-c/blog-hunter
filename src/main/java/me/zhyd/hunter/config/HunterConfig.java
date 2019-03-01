@@ -74,8 +74,9 @@ public class HunterConfig {
     private int count;
     private List<Cookie> cookies = new ArrayList<>();
     private Map<String, String> headers = new HashMap<>();
-    private String ua = UserAgentEnum.PC.getUa();
+    private String ua = UserAgentEnum.getRandomUa();
     private String uid;
+    private boolean onlyThisAuthor;
     /**
      * 保留字段，针对ajax渲染的页面
      */
@@ -93,12 +94,13 @@ public class HunterConfig {
     public HunterConfig() {
     }
 
-    public String getUid() {
-        return uid;
-    }
-
     public HunterConfig setUid(String uid) {
         this.uid = uid;
+        return this;
+    }
+
+    public HunterConfig setOnlyThisAuthor(boolean onlyThisAuthor) {
+        this.onlyThisAuthor = onlyThisAuthor;
         return this;
     }
 
