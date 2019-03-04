@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -119,7 +120,9 @@ public class QuickStartTest {
                 // 如果不手动设置该值， 则取ExitWayEnum中默认的数量，URL_COUNT(10)，DURATION(60)
                 .setCount(10);
         HunterProcessor hunter = new BlogHunterProcessor(config);
+        System.out.println("程序开始执行：" + new Date());
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        System.out.println("程序执行完毕：" + new Date());
         if (null == list || list.isEmpty()) {
             System.out.println("没获取到数据");
         } else {
@@ -235,13 +238,11 @@ public class QuickStartTest {
         HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
         // set会重置，add会追加
         config.setEntryUrls("https://www.imooc.com/u/1175248/articles")
-                .addEntryUrl("https://www.imooc.com/u/479481/articles")
-                .addEntryUrl("https://www.imooc.com/u/6321116/articles")
-                .addEntryUrl("https://www.imooc.com/u/1879927/articles")
+                .addEntryUrl("https://www.imooc.com/u/4321686/articles")
                 // 设置程序退出的方式
                 .setExitWay(ExitWayEnum.URL_COUNT)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
-                .setCount(5)
+                .setCount(20)
                 // 每次抓取间隔的时间
                 .setSleepTime(100)
                 // 失败重试次数
@@ -249,7 +250,7 @@ public class QuickStartTest {
                 // 针对抓取失败的链接 循环重试次数
                 .setCycleRetryTimes(3)
                 // 开启的线程数
-                .setThreadCount(10)
+                .setThreadCount(5)
                 // 开启图片转存
                 .setConvertImg(true);
         HunterProcessor hunter = new BlogHunterProcessor(config);
