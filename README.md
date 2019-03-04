@@ -176,32 +176,32 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 |  字段  |  释义  |  数据类型  |  默认  |  必填  |  备注  |
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------ |
 |  titleRegex  |  标题的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
-|  contentRegex  |  内容的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  releaseDateRegex  |  发布日期的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  authorRegex  |  作者的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  targetLinksRegex  |  待抓取的url的匹配规则(`regex`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  tagRegex  |  标签的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" disabled>  |  -  |
-|  keywordsRegex  |  文章关键词的匹配规则(`xpath`)  |  string  |  `//meta[@name=keywords]/@content`  |  <input type="checkbox" disabled>  |  -  |
-|  descriptionRegex  |  文章描述的匹配规则(`xpath`)  |  string  |  `//meta[@name=description]/@content`  |  <input type="checkbox" disabled>  |  -  |
-|  domain  |  网站根域名  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  charset  |  网站编码  |  string  |  `UTF-8`  |  <input type="checkbox" disabled>  |  -  |
-|  single  |  是否抓取的单个文章  |  bool  |  `false`  |  <input type="checkbox" disabled>  |  -  |
-|  sleepTime  |  每次抓取等待的时间  |  int  |  `1000`  |  <input type="checkbox" disabled>  |  -  |
-|  retryTimes  |  抓取失败时重试的次数  |  int  |  `2`  |  <input type="checkbox" disabled>  |  -  |
-|  cycleRetryTimes  |  循环重试次数  |  int  |  `2`  |  <input type="checkbox" disabled>  |  抓取失败时重试的次数用完后依然未抓取成功时，循环重试  |
-|  threadCount  |  线程个数  |  int  |  `1`  |  <input type="checkbox" disabled>  |  -  |
-|  entryUrls  |  抓取入口地址  |  list  |  -  |  <input type="checkbox" checked disabled>  |  -  |
-|  exitWay  |  程序退出的方式  |  string  |  `URL_COUNT`  |  <input type="checkbox" disabled>  |  `DEFAULT`:默认方式,直到将所有匹配到的url抓取完成才会退出<br>`DURATION` 按照程序持续的时间，默认`60秒`<br>`URL_COUNT` 按照抓取的条数，默认`10条`|
-|  count  |  对应退出方式  |  int  |  -  |  <input type="checkbox" disabled>  |  exitWay = `DURATION` 时默认`60`<br>exitWay = `URL_COUNT` 时默认`10`|
-|  cookies  |  网站的Cookie  |  list  |  -  |  <input type="checkbox" disabled>  |  当有些网站必须需要登录时，可以指定该值，用以绕过登录 |
-|  headers  |  http请求的header  |  map  |  -  |  <input type="checkbox" disabled>  |  有些网站存在防盗链时，可能需要指定header |
-|  ua  |  http请求的User-agent  |  String  |  -  |  <input type="checkbox" disabled>  |  随机生成，不建议用mobile端的ua，因为有些网站根据ua自动跳转移动端和pc端链接，可能导致抓取失败 |
-|  uid  |  博客平台的用户id  |  String  |  -  |  <input type="checkbox" disabled>  |  一般为用户个人中心里url后的一串随机字符串 |
-|  onlyThisAuthor  |  是否只抓取指定的uid用户  |  bool  |  -  |  <input type="checkbox" disabled>  |  保留字段，暂时无用 |
-|  ajaxRequest  |  是否为ajax渲染的页面  |  bool  |  -  |  <input type="checkbox" disabled>  |  保留字段，暂时无用 |
-|  convertImg  |  是否转存图片  |  bool  |  -  |  <input type="checkbox" disabled>  |  当选择true时会自动过滤原文中的img链接并返回，调用端可选择将图片下载后替换掉原来的图片 |
-|  proxyList  |  代理的列表  |  list  |  -  |  <input type="checkbox" disabled>  |  保留字段，暂时无用 |
-|  proxyType  |  代理的类型  |  enum  |  -  |  <input type="checkbox" disabled>  |  保留字段，暂时无用 |
+|  contentRegex  |  内容的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
+|  releaseDateRegex  |  发布日期的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
+|  authorRegex  |  作者的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
+|  targetLinksRegex  |  待抓取的url的匹配规则(`regex`)  |  string  |  -  |  √  |  -  |
+|  tagRegex  |  标签的匹配规则(`xpath`)  |  string  |  -  |  ×  |  -  |
+|  keywordsRegex  |  文章关键词的匹配规则(`xpath`)  |  string  |  `//meta[@name=keywords]/@content`  |  ×  |  -  |
+|  descriptionRegex  |  文章描述的匹配规则(`xpath`)  |  string  |  `//meta[@name=description]/@content`  |  ×  |  -  |
+|  domain  |  网站根域名  |  string  |  -  |  √  |  -  |
+|  charset  |  网站编码  |  string  |  `UTF-8`  |  ×  |  -  |
+|  single  |  是否抓取的单个文章  |  bool  |  `false`  |  ×  |  -  |
+|  sleepTime  |  每次抓取等待的时间  |  int  |  `1000`  |  ×  |  -  |
+|  retryTimes  |  抓取失败时重试的次数  |  int  |  `2`  |  ×  |  -  |
+|  cycleRetryTimes  |  循环重试次数  |  int  |  `2`  |  ×  |  抓取失败时重试的次数用完后依然未抓取成功时，循环重试  |
+|  threadCount  |  线程个数  |  int  |  `1`  |  ×  |  -  |
+|  entryUrls  |  抓取入口地址  |  list  |  -  |  √  |  -  |
+|  exitWay  |  程序退出的方式  |  string  |  `URL_COUNT`  |  ×  |  `DEFAULT`:默认方式,直到将所有匹配到的url抓取完成才会退出<br>`DURATION` 按照程序持续的时间，默认`60秒`<br>`URL_COUNT` 按照抓取的条数，默认`10条`|
+|  count  |  对应退出方式  |  int  |  -  |  ×  |  exitWay = `DURATION` 时默认`60`<br>exitWay = `URL_COUNT` 时默认`10`|
+|  cookies  |  网站的Cookie  |  list  |  -  |  ×  |  当有些网站必须需要登录时，可以指定该值，用以绕过登录 |
+|  headers  |  http请求的header  |  map  |  -  |  ×  |  有些网站存在防盗链时，可能需要指定header |
+|  ua  |  http请求的User-agent  |  String  |  -  |  ×  |  随机生成，不建议用mobile端的ua，因为有些网站根据ua自动跳转移动端和pc端链接，可能导致抓取失败 |
+|  uid  |  博客平台的用户id  |  String  |  -  |  ×  |  一般为用户个人中心里url后的一串随机字符串 |
+|  onlyThisAuthor  |  是否只抓取指定的uid用户  |  bool  |  -  |  ×  |  保留字段，暂时无用 |
+|  ajaxRequest  |  是否为ajax渲染的页面  |  bool  |  -  |  ×  |  保留字段，暂时无用 |
+|  convertImg  |  是否转存图片  |  bool  |  -  |  ×  |  当选择true时会自动过滤原文中的img链接并返回，调用端可选择将图片下载后替换掉原来的图片 |
+|  proxyList  |  代理的列表  |  list  |  -  |  ×  |  保留字段，暂时无用 |
+|  proxyType  |  代理的类型  |  enum  |  -  |  ×  |  保留字段，暂时无用 |
 
 
 ## 交流
