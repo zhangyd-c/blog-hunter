@@ -43,7 +43,7 @@
         <hutool-version>4.1.21</hutool-version>
         <lombok-version>1.18.4</lombok-version>
         <junit-version>4.11</junit-version>
-        <fastjson-version>1.2.6</fastjson-version>
+        <fastjson-version>[1.2.31,)</fastjson-version>
         <webmagic.version>0.7.3</webmagic.version>
         <jsoup.version>1.10.2</jsoup.version>
         <hibernate.validator.version>6.0.9.Final</hibernate.validator.version>
