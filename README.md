@@ -41,7 +41,7 @@
 </dependency>
 ```
 
-#### 抓取单个文章
+#### 抓取单篇文章
 
 ```java
 String url = "https://www.cnblogs.com/zhangyadong/p/oneblog.html";
@@ -76,9 +76,110 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 
 `imageLink` 包含两个属性：`originalLink`,`srcLink`。其中`srcLink`为目标网站的`src`属性中的值，而`originalLink`表示真实的图片路径，之所以这么处理是因为有些网站使用了图片懒加载技术，`src`中并不是真实的图片地址。
 
+#### 抓取文章列表（只抓两篇文章）
 
-## 解决webMagic爬取https站点报错的问题
+```java
+HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
+config.setUid("1175248")
+        .setExitWay(ExitWayEnum.URL_COUNT)
+        .setCount(2);
+HunterProcessor hunter = new BlogHunterProcessor(config);
+CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+```
+**运行结果**
 
-[http://www.cnblogs.com/vcmq/p/9484418.html](http://www.cnblogs.com/vcmq/p/9484418.html)
+```
+16:52:27,098  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/259921" target="_blank">springboot之一文带你搞懂Scheduler定时器(修订-详尽版)</a> -- 慕冬雪 -- 2018-11-08 17:31:00
+16:52:28,543  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/259252" target="_blank">springboot整合Mybatis+Mapper+Pagehelper(修订-详尽版)</a> -- 慕冬雪 -- 2018-11-05 21:02:00
+```
 
-[https://github.com/code4craft/webmagic/issues/701](https://github.com/code4craft/webmagic/issues/701)
+#### 抓取文章列表（程序运行10秒后停止）
+
+```java
+HunterConfig config = HunterConfigContext.getHunterConfig(Platform.CSDN);
+config.setUid("u011197448")
+        .setExitWay(ExitWayEnum.DURATION)
+        .setCount(10);
+HunterProcessor hunter = new BlogHunterProcessor(config);
+System.out.println("程序开始执行：" + new Date());
+CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+System.out.println("程序执行完毕：" + new Date());
+```
+**运行结果**
+
+```
+程序开始执行：Mon Mar 04 16:56:56 CST 2019
+16:56:59,274  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/83901306" target="_blank">springboot整合Freemark模板(详尽版)</a> -- 七彩狼 -- 2018-11-09 17:45:56
+16:57:00,634  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/82022098" target="_blank">DBlog开源博客新增博客迁移功能（支持多个站点）</a> -- 七彩狼 -- 2018-08-24 17:16:24
+16:57:01,862  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/81233178" target="_blank">【超赞】推荐一波优秀的开发工具</a> -- 七彩狼 -- 2018-07-27 10:40:31
+16:57:03,080  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/80563567" target="_blank">消息称微软计划收购GitHub，估值超50亿美元</a> -- 七彩狼 -- 2018-06-04 10:11:12
+16:57:04,356  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/79484624" target="_blank">Springboot + Freemarker项目中使用自定义注解</a> -- 七彩狼 -- 2018-03-08 15:04:50
+16:57:05,638  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/79142519" target="_blank">StringRedisTemplate常用操作</a> -- 七彩狼 -- 2018-01-23 17:35:22
+16:57:06,879  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://blog.csdn.net/u011197448/article/details/79142428" target="_blank">JS异常(intermediate value)(intermediate value)(...) is not a function</a> -- 七彩狼 -- 2018-01-23 17:30:15
+程序执行完毕：Mon Mar 04 16:57:07 CST 2019
+```
+
+#### 高级使用
+
+```java
+HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
+// set会重置，add会追加
+config.setEntryUrls("https://www.imooc.com/u/1175248/articles")
+        .addEntryUrl("https://www.imooc.com/u/4321686/articles")
+        // 设置程序退出的方式
+        .setExitWay(ExitWayEnum.URL_COUNT)
+        // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
+        .setCount(20)
+        // 每次抓取间隔的时间
+        .setSleepTime(100)
+        // 失败重试次数
+        .setRetryTimes(3)
+        // 针对抓取失败的链接 循环重试次数
+        .setCycleRetryTimes(3)
+        // 开启的线程数
+        .setThreadCount(5)
+        // 开启图片转存
+        .setConvertImg(true);
+HunterProcessor hunter = new BlogHunterProcessor(config);
+CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+```
+
+**运行结果**
+
+```
+16:58:44,510  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/280679" target="_blank">【硬核优惠】三月涨薪季，过关斩将，“职”由你！</a> -- 慕课网官方_运营中心 -- 2019-03-01 11:58:00
+16:58:44,512  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/259252" target="_blank">springboot整合Mybatis+Mapper+Pagehelper(修订-详尽版)</a> -- 慕冬雪 -- 2018-11-05 21:02:00
+16:58:44,510  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/280748" target="_blank">慕课网每周干货福利礼包（第二十棒）</a> -- 慕课网官方_运营中心 -- 2019-03-01 17:30:00
+16:58:44,544  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/259921" target="_blank">springboot之一文带你搞懂Scheduler定时器(修订-详尽版)</a> -- 慕冬雪 -- 2018-11-08 17:31:00
+16:58:44,571  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/258641" target="_blank">springboot整合Freemark模板(修订-详尽版)</a> -- 慕冬雪 -- 2018-11-02 21:05:00
+16:58:45,138  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/280368" target="_blank">直播 | 价值99元的2019前端面试课，限时免费听！</a> -- 慕课网官方_运营中心 -- 2019-02-27 11:45:00
+16:58:45,140  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/254337" target="_blank">一次糟心的排错历程</a> -- 慕冬雪 -- 2018-10-15 11:47:00
+16:58:45,142  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/279570" target="_blank">慕课网每周干货福利礼包（第十九棒）</a> -- 慕课网官方_运营中心 -- 2019-02-22 16:11:00
+16:58:45,156  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/279579" target="_blank">一文读懂慕课专栏，文末福利！</a> -- 慕课网官方_运营中心 -- 2019-02-22 18:35:00
+16:58:45,191  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/250819" target="_blank">SpringBoot项目实战（10）：自定义freemarker标签</a> -- 慕冬雪 -- 2018-09-28 14:01:00
+16:58:45,698  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/279428" target="_blank">【慕课有约】bobo老师：算法就是一场“游戏”，攻关打Boss（上）</a> -- 慕课网官方_运营中心 -- 2019-02-21 13:54:00
+16:58:45,707  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/279293" target="_blank">【面试技巧系列一】备战金三银四，涨薪先人一步</a> -- 慕课网官方_运营中心 -- 2019-02-20 15:54:00
+16:58:45,727  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/70886" target="_blank">DBlog开源博客新增博客迁移功能（支持多个站点）</a> -- 慕冬雪 -- 2018-08-24 17:33:00
+16:58:45,955  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/78650" target="_blank">详细介绍如何自研一款"博客搬家"功能</a> -- 慕冬雪 -- 2018-09-13 13:25:00
+16:58:46,095  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/70439" target="_blank">echarts统计图中世界国家汉化表及汉化方式</a> -- 慕冬雪 -- 2018-08-22 13:58:00
+16:58:46,128  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/49002" target="_blank">【注意】恕我直言，我想教你抓取慕课的文章！</a> -- 慕冬雪 -- 2018-07-31 18:33:00
+16:58:46,173  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/278482" target="_blank">慕课网每周干货福利礼包（第十八棒）</a> -- 慕课网官方_运营中心 -- 2019-02-15 15:28:00
+16:58:46,258  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/277960" target="_blank">【中奖公告】012期：程序员们，你妈催你相亲/结婚/生娃了吗？</a> -- 慕课网官方_运营中心 -- 2019-02-12 11:26:00
+16:58:46,388  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/41600" target="_blank">DBlog建站之Websocket的实际使用方式</a> -- 慕冬雪 -- 2018-07-05 14:50:00
+16:58:46,565  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/276553" target="_blank">大神云集——Redis命令实现源码分析</a> -- 慕课网官方_运营中心 -- 2019-01-30 15:21:00
+```
+
+更多使用方式请参考文档...
+
+## 交流
+
+|  微信(备注:`hunter加群`)  |  欢迎关注公众号  |
+| :------------: | :------------: |
+| <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wx.png" width="170"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/wx/wechat_account.jpg" width="200" /> |
+
+
+## 致谢
+
+- [WebMagic](https://gitee.com/flashsword20/webmagic): 一个简单而又强大的爬虫框架
+- [Hutool](https://gitee.com/loolly/hutool): 一个优秀的Java工具包
+- [OneBlog](https://gitee.com/yadong.zhang/DBlog): 一个牛逼的Java开源博客
