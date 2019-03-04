@@ -175,7 +175,7 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 
 |  字段  |  释义  |  数据类型  |  默认  |  必填  |  备注  |
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------ |
-|  titleRegex  |  标题的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
+|  titleRegex  |  标题的匹配规则(`xpath`)  |  string  |  -  |  [x]  |  -  |
 |  contentRegex  |  内容的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
 |  releaseDateRegex  |  发布日期的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
 |  authorRegex  |  作者的匹配规则(`xpath`)  |  string  |  -  |  <input type="checkbox" checked disabled>  |  -  |
