@@ -5,8 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.selector.Html;
 
-import java.util.Arrays;
-
 /**
  * 解析处理普通的Html网页
  *
@@ -33,13 +31,15 @@ public class HtmlResolver implements Resolver {
             this.put(page, pageHtml, "keywords", model.getKeywordsRegex());
         }
         if (!model.isSingle()) {
-            page.addTargetRequests(page.getHtml().links().regex(model.getTargetLinksRegex()).all());
+            if (StringUtils.isNotEmpty(model.getTargetLinksRegex())) {
+                page.addTargetRequests(page.getHtml().links().regex(model.getTargetLinksRegex()).all());
+            }
         }
     }
 
     private void put(Page page, Html pageHtml, String key, String regex) {
         if (StringUtils.isNotEmpty(regex)) {
-            if(key.equals("tags")) {
+            if (key.equals("tags")) {
                 page.putField(key, pageHtml.xpath(regex).all());
                 return;
             }

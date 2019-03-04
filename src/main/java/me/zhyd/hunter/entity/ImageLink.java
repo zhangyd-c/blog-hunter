@@ -22,4 +22,9 @@ public class ImageLink {
      * 当网站采用了懒加载时，originalLink表示真正的连接
      */
     private String originalLink;
+
+    public ImageLink(String srcLink, String originalLink) {
+        this.srcLink = srcLink;
+        this.originalLink = originalLink;
+    }
 }

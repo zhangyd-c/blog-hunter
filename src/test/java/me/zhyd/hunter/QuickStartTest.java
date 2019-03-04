@@ -1,5 +1,6 @@
 package me.zhyd.hunter;
 
+import com.alibaba.fastjson.JSONArray;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.hunter.config.HunterConfig;
 import me.zhyd.hunter.config.HunterConfigContext;
@@ -21,9 +22,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public class QuickStartTest {
 
-    private void single(String url) {
+    /**
+     * 抓取单个文章
+     *
+     * @param url          文件地址
+     * @param convertImage 是否转存图片，当选择true时会在结果中返回该文中的所有图片链接
+     */
+    private void single(String url, boolean convertImage) {
         System.out.println(url + " | " + PlatformUtil.getDomain(url) + " | " + PlatformUtil.getHost(url));
-        HunterProcessor hunter = new BlogHunterProcessor(url, true);
+        HunterProcessor hunter = new BlogHunterProcessor(url, convertImage);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
         if (null == list || list.isEmpty()) {
             log.info("没获取到数据: {}", url);
@@ -33,7 +40,6 @@ public class QuickStartTest {
     }
 
     private void check(CopyOnWriteArrayList<VirtualArticle> list) {
-
         for (int i = 0, size = list.size(); i < size; i++) {
             VirtualArticle virtualArticle = list.get(i);
             log.info("[Hunter] " + (i + 1) + ". " + virtualArticle.getTitle() + " | " + virtualArticle.getAuthor());
@@ -69,12 +75,12 @@ public class QuickStartTest {
      */
     @Test
     public void singleTest() {
-        this.single("https://www.imooc.com/article/259921");
-        this.single("https://blog.csdn.net/u011197448/article/details/83901306");
-        this.single("https://843977358.iteye.com/blog/2317810");
-        this.single("https://www.cnblogs.com/zhangyadong/p/oneblog.html");
-        this.single("https://juejin.im/post/5c75d34851882564965edb23");
-        this.single("https://www.v2ex.com/t/519648");
+        this.single("https://www.imooc.com/article/259921", true);
+        this.single("https://blog.csdn.net/u011197448/article/details/83901306", true);
+        this.single("https://843977358.iteye.com/blog/2317810", true);
+        this.single("https://www.cnblogs.com/zhangyadong/p/oneblog.html", true);
+        this.single("https://juejin.im/post/5c75d34851882564965edb23", true);
+        this.single("https://www.v2ex.com/t/519648", false);
     }
 
     /**
@@ -225,7 +231,7 @@ public class QuickStartTest {
      * 高级使用
      */
     @Test
-    public void v2exTest3() {
+    public void other() {
         HunterConfig config = HunterConfigContext.getHunterConfig(Platform.IMOOC);
         // set会重置，add会追加
         config.setEntryUrls("https://www.imooc.com/u/1175248/articles")
@@ -233,9 +239,9 @@ public class QuickStartTest {
                 .addEntryUrl("https://www.imooc.com/u/6321116/articles")
                 .addEntryUrl("https://www.imooc.com/u/1879927/articles")
                 // 设置程序退出的方式
-                .setExitWay(ExitWayEnum.DURATION)
+                .setExitWay(ExitWayEnum.URL_COUNT)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
-                .setCount(120)
+                .setCount(5)
                 // 每次抓取间隔的时间
                 .setSleepTime(100)
                 // 失败重试次数
@@ -243,7 +249,9 @@ public class QuickStartTest {
                 // 针对抓取失败的链接 循环重试次数
                 .setCycleRetryTimes(3)
                 // 开启的线程数
-                .setThreadCount(10);
+                .setThreadCount(10)
+                // 开启图片转存
+                .setConvertImg(true);
         HunterProcessor hunter = new BlogHunterProcessor(config);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
         if (null == list || list.isEmpty()) {

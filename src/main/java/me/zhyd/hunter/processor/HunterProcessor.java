@@ -1,5 +1,6 @@
 package me.zhyd.hunter.processor;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -141,6 +142,9 @@ public abstract class HunterProcessor implements PageProcessor {
             return;
         }
         Map<String, Object> map = resultItems.getAll();
+        if(CollectionUtil.isEmpty(map)) {
+            return;
+        }
         String title = String.valueOf(map.get("title"));
         /*if (StringUtils.isEmpty(title) || "null".equals(title.trim())) {
             return;

@@ -63,28 +63,14 @@ public class CommonUtil {
         ImageLink imageLink = null;
         while (m.find()) {
             String imgUrl1 = m.group(1), imgUrl2 = m.group(2);// 如果不为空，则表示img标签格式为 <img src="xx" data-original="xx">,下同， 一般为添加了懒加载的img
-            String imgUrl3 = m.group(3), imgUrl4 = m.group(4);// 如果不为空，则表示img标签格式为 <img data-original="xx" src="xx">,下同， 一般为添加了懒加载的img
+            String imgUrl3 = m.group(3), imgUrl4 = m.group(4);// 如果不为空，则表示img标签格式为 <img data-original="xx" src="xx">
             String imgUrl5 = m.group(5);// 如果不为空，则表示img标签格式为 <img src="xx">, 正常的标签
-            imageLink = new ImageLink();
             if (!StringUtils.isEmpty(imgUrl1)) {
-                if (imgUrl1.contains(base64Prefix)) {
-                    imageLink.setSrcLink(imgUrl1);
-                    imageLink.setOriginalLink(imgUrl2);
-                } else {
-                    imageLink.setSrcLink(imgUrl2);
-                    imageLink.setOriginalLink(imgUrl1);
-                }
+                imageLink = new ImageLink(imgUrl1, imgUrl2);
             } else if (!StringUtils.isEmpty(imgUrl3)) {
-                if (imgUrl3.contains(base64Prefix)) {
-                    imageLink.setSrcLink(imgUrl3);
-                    imageLink.setOriginalLink(imgUrl4);
-                } else {
-                    imageLink.setSrcLink(imgUrl4);
-                    imageLink.setOriginalLink(imgUrl3);
-                }
+                imageLink = new ImageLink(imgUrl3, imgUrl4);
             } else if (!StringUtils.isEmpty(imgUrl5)) {
-                imageLink.setSrcLink(imgUrl5);
-                imageLink.setOriginalLink(imgUrl5);
+                imageLink = new ImageLink(imgUrl5, imgUrl5);
             }
             imageLinks.add(imageLink);
         }
