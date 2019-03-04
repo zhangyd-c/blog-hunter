@@ -33,7 +33,7 @@ public class HunterConfig {
     private String releaseDateRegex;
     @NotNull(message = "必须指定作者抓取规则(xpath)")
     private String authorRegex;
-    @NotNull(message = "必须指定待抓取的url抓取规则(xpath)")
+    @NotNull(message = "必须指定待抓取的url抓取规则(regex)")
     private String targetLinksRegex;
     private String tagRegex;
     private String keywordsRegex = "//meta[@name=keywords]/@content";
@@ -54,7 +54,7 @@ public class HunterConfig {
     @Min(value = 1, message = "抓取失败时最少只能重试1次")
     private int retryTimes = 2;
     /**
-     * 抓取失败时重试的次数
+     * 抓取失败时重试的次数用完后依然未抓取成功时，循环重试
      */
     @Max(value = 5, message = "最多支持5次失败循环重试")
     @Min(value = 1, message = "最少支持1次失败循环重试")
