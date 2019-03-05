@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2018/9/27 17:40
  * @since 1.8
  */
 public class CommonUtil {

@@ -12,8 +12,6 @@ import java.lang.reflect.Type;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/2/26 19:14
  * @since 1.8
  */
 public class HunterDateDeserializer implements ObjectDeserializer {

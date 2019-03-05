@@ -7,8 +7,6 @@ import cn.hutool.core.util.RandomUtil;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2018/9/26 14:21
  * @since 1.8
  */
 public enum UserAgentEnum {

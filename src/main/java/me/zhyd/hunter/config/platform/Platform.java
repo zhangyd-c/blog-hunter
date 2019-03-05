@@ -5,8 +5,6 @@ import me.zhyd.hunter.util.PlatformUtil;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/2/27 13:22
  * @since 1.8
  */
 public enum Platform {

@@ -11,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2018/9/26 17:21
  * @since 1.8
  */
 public class Hunter extends Spider {
