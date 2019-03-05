@@ -9,20 +9,20 @@
     <version>1.0.0</version>
 
     <name>blog-hunter</name>
-    <url>https://gitee.com/yadong.zhang/blog-hunter</url>
-    <description>博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs等各大主流博客平台。博客千万条，版权第一条。狩猎不规范，亲人两行泪。</description>
+    <url>https://github.com/zhangyd-c/blog-hunter</url>
+    <description>博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</description>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>https://gitee.com/yadong.zhang/blog-hunter/blob/master/LICENSE</url>
+            <url>https://github.com/zhangyd-c/blog-hunter/blob/master/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <connection>scm:git:https://gitee.com/yadong.zhang/blog-hunter.git</connection>
-        <developerConnection>scm:git:https://gitee.com/yadong.zhang/blog-hunter.git</developerConnection>
-        <url>https://gitee.com/yadong.zhang/blog-hunter</url>
+        <connection>scm:git:https://github.com/zhangyd-c/blog-hunter.git</connection>
+        <developerConnection>scm:git:https://github.com/zhangyd-c/blog-hunter.git</developerConnection>
+        <url>https://github.com/zhangyd-c/blog-hunter</url>
     </scm>
 
     <developers>
