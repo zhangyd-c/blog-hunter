@@ -30,6 +30,13 @@ public class HunterPrintWriter {
         this.jsoupCallback = jsoupCallback;
     }
 
+    /**
+     * @param writer        输出流
+     */
+    public HunterPrintWriter(PrintWriter writer) {
+        this.writer = writer;
+    }
+
     public HunterPrintWriter print(String... msgs) {
         if (null == writer) {
             for (String msg : msgs) {
@@ -40,7 +47,7 @@ public class HunterPrintWriter {
         for (String msg : msgs) {
             log.info(msg);
             if (null != writer) {
-                writer.print(String.format(jsoupCallback, msg));
+                writer.print(String.format(this.jsoupCallback, msg));
                 writer.flush();
             }
         }
