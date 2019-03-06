@@ -140,13 +140,10 @@ public abstract class HunterProcessor implements PageProcessor {
             return;
         }
         Map<String, Object> map = resultItems.getAll();
-        if(CollectionUtil.isEmpty(map)) {
+        if (CollectionUtil.isEmpty(map)) {
             return;
         }
         String title = String.valueOf(map.get("title"));
-        /*if (StringUtils.isEmpty(title) || "null".equals(title.trim())) {
-            return;
-        }*/
         ParserConfig jcParserConfig = new ParserConfig();
         jcParserConfig.putDeserializer(Date.class, HunterDateDeserializer.instance);
         VirtualArticle virtualArticle = JSON.parseObject(JSON.toJSONString(map), VirtualArticle.class, jcParserConfig, JSON.DEFAULT_PARSER_FEATURE);
@@ -160,5 +157,9 @@ public abstract class HunterProcessor implements PageProcessor {
         }
         virtualArticles.add(virtualArticle);
         writer.print(String.format("[ hunter ]  <a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", virtualArticle.getSource(), title, virtualArticle.getAuthor(), virtualArticle.getReleaseDate()));
+    }
+
+    public HunterConfig getConfig() {
+        return config;
     }
 }
