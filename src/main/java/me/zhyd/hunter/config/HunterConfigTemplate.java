@@ -1,11 +1,11 @@
 package me.zhyd.hunter.config;
 
-import cn.hutool.core.io.file.FileReader;
+import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.hunter.exception.HunterException;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.net.URL;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -30,13 +30,27 @@ public class HunterConfigTemplate {
     }
 
     private void init() {
-        String configFileName = "HunterConfig.json";
-        URL url = this.getClass().getClassLoader().getResource(configFileName);
-        if (null == url) {
-            throw new HunterException("[hunter] 请检查`src/main/resources`下是否存在" + configFileName);
+        String configFileName = "/HunterConfig.json";
+        String config = null;
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream(configFileName);
+            if (null == inputStream) {
+                throw new HunterException("[hunter] 请检查`src/main/resources`下是否存在" + configFileName);
+            }
+            config = IoUtil.read(inputStream, Charset.forName("UTF-8"));
+            if (StringUtils.isEmpty(config)) {
+                throw new HunterException("[hunter] HunterConfig内容为空：" + configFileName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        File configFile = new File(url.getPath());
-        configTemplate = JSONObject.parseObject(FileReader.create(configFile, Charset.forName("UTF-8")).readString());
+
+        try {
+            configTemplate = JSONObject.parseObject(config);
+        } catch (Exception e) {
+            throw new HunterException("[hunter] HunterConfig配置文件格式错误");
+        }
+
     }
 
 }
