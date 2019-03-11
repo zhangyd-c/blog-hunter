@@ -169,6 +169,21 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 16:58:46,565  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/276553" target="_blank">大神云集——Redis命令实现源码分析</a> -- 慕课网官方_运营中心 -- 2019-01-30 15:21:00
 ```
 
+#### 停止爬虫
+
+创建Hunter时指定`uuid`，本例使用`当前用户的id`作为`uuid`
+```java
+HunterProcessor hunter = new BlogHunterProcessor(config, writerUtil, userId);
+CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+```
+
+停止爬虫
+
+```java
+Hunter spider = Hunter.getHunter(userId);
+spider.stop();
+```
+
 **注意**
 
 部分网站没有配置`Keywords`，所以在运行单元测试时如果碰到`Keywords`内容为空，可以忽略。如果是`title`、`content`等内容为空，请检查配置文件中的`xpath`匹配规则是否正确。
