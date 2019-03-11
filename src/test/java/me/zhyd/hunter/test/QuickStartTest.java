@@ -1,10 +1,11 @@
-package me.zhyd.hunter;
+package me.zhyd.hunter.test;
 
 import com.alibaba.fastjson.JSONArray;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.hunter.config.HunterConfig;
 import me.zhyd.hunter.config.HunterConfigContext;
 import me.zhyd.hunter.config.platform.Platform;
+import me.zhyd.hunter.consts.HunterConsts;
 import me.zhyd.hunter.entity.VirtualArticle;
 import me.zhyd.hunter.enums.ExitWayEnum;
 import me.zhyd.hunter.processor.BlogHunterProcessor;
@@ -30,7 +31,7 @@ public class QuickStartTest {
      * @param convertImage 是否转存图片，当选择true时会在结果中返回该文中的所有图片链接
      */
     private void single(String url, boolean convertImage) {
-        System.out.println(url + " | " + PlatformUtil.getDomain(url) + " | " + PlatformUtil.getHost(url));
+        log.info(HunterConsts.LOG_PREFIX + url + " | " + PlatformUtil.getDomain(url) + " | " + PlatformUtil.getHost(url));
         HunterProcessor hunter = new BlogHunterProcessor(url, convertImage);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
         if (null == list || list.isEmpty()) {
@@ -41,32 +42,31 @@ public class QuickStartTest {
     }
 
     private void check(CopyOnWriteArrayList<VirtualArticle> list) {
-        for (int i = 0, size = list.size(); i < size; i++) {
-            VirtualArticle virtualArticle = list.get(i);
-            log.info("[Hunter] " + (i + 1) + ". " + virtualArticle.getTitle() + " | " + virtualArticle.getAuthor());
+        for (VirtualArticle virtualArticle : list) {
+            log.info(HunterConsts.LOG_PREFIX + JSONArray.toJSONString(virtualArticle.getImageLinks()));
             if (StringUtils.isEmpty(virtualArticle.getContent())) {
-                log.error("    ERROR | 内容为空");
+                log.error(HunterConsts.LOG_PREFIX + "内容为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getAuthor())) {
-                log.error("    ERROR | 作者为空");
+                log.error(HunterConsts.LOG_PREFIX + "作者为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getSource())) {
-                log.error("    ERROR | 源站为空");
+                log.error(HunterConsts.LOG_PREFIX + "源站为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getDescription())) {
-                log.error("    ERROR | Description为空");
+                log.error(HunterConsts.LOG_PREFIX + "Description为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getKeywords())) {
-                log.error("    ERROR | Keywords内容为空");
+                log.error(HunterConsts.LOG_PREFIX + "Keywords内容为空");
             }
             if (StringUtils.isEmpty(virtualArticle.getTitle())) {
-                log.error("    ERROR | 标题为空");
+                log.error(HunterConsts.LOG_PREFIX + "标题为空");
             }
             if (null == virtualArticle.getReleaseDate()) {
-                log.error("    ERROR | 发布日期为空");
+                log.error(HunterConsts.LOG_PREFIX + "发布日期为空");
             }
             if (CollectionUtils.isEmpty(virtualArticle.getTags())) {
-                log.error("    ERROR | 标签为空");
+                log.error(HunterConsts.LOG_PREFIX + "标签为空");
             }
         }
     }
@@ -81,7 +81,7 @@ public class QuickStartTest {
         this.single("https://843977358.iteye.com/blog/2317810", true);
         this.single("https://www.cnblogs.com/zhangyadong/p/oneblog.html", true);
         this.single("https://juejin.im/post/5c75d34851882564965edb23", true);
-        this.single("https://www.v2ex.com/t/519648", false);
+        this.single("https://www.v2ex.com/t/519648", true);
     }
 
     /**

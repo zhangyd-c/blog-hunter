@@ -4,10 +4,14 @@ import me.zhyd.hunter.entity.ImageLink;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Request;
+import us.codecraft.webmagic.selector.Html;
+import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -51,27 +55,64 @@ public class CommonUtil {
      *
      * @param html 原博客内容
      */
+    public static String formatHtml(String html) {
+        if (StringUtils.isEmpty(html)) {
+            return null;
+        }
+        String lazyloadFormat = "<img src=\"%s\" title=\"%s\" alt=\"%s\">";
+
+        Html pageHtml = getHtml(html);
+        List<Selectable> imgSelectables = pageHtml.$("img").nodes();
+        for (Selectable imgSelectable : imgSelectables) {
+            String oldImg = imgSelectable.get();
+            String newImg = String.format(lazyloadFormat, getRealImgUrl(imgSelectable), imgSelectable.xpath("//img/@title").get(), imgSelectable.xpath("//img/@alt").get());
+            html = html.replace(oldImg, newImg);
+        }
+        return html;
+    }
+
+    private static String getRealImgUrl(Selectable selectable) {
+        String realImgUrl = selectable.xpath("//img/@data-original").get();
+        if (StringUtils.isEmpty(realImgUrl)) {
+            realImgUrl = selectable.xpath("//img/@data-src").get();
+            if (StringUtils.isEmpty(realImgUrl)) {
+                realImgUrl = selectable.xpath("//img/@src").get();
+            }
+        }
+        if (StringUtils.isNotEmpty(realImgUrl)) {
+            if (realImgUrl.contains("?")) {
+                realImgUrl = realImgUrl.substring(0, realImgUrl.indexOf("?"));
+            }
+        }
+        return realImgUrl;
+    }
+
+    /**
+     * 获取所有图片标签的src连接
+     *
+     * @param html 原博客内容
+     */
     public static Set<ImageLink> getAllImageLink(String html) {
         if (StringUtils.isEmpty(html)) {
             return null;
         }
-        String base64Prefix = "data:image";
-        Matcher m = PATTERN.matcher(html);
         Set<ImageLink> imageLinks = new HashSet<>();
         ImageLink imageLink = null;
-        while (m.find()) {
-            String imgUrl1 = m.group(1), imgUrl2 = m.group(2);// 如果不为空，则表示img标签格式为 <img src="xx" data-original="xx">,下同， 一般为添加了懒加载的img
-            String imgUrl3 = m.group(3), imgUrl4 = m.group(4);// 如果不为空，则表示img标签格式为 <img data-original="xx" src="xx">
-            String imgUrl5 = m.group(5);// 如果不为空，则表示img标签格式为 <img src="xx">, 正常的标签
-            if (!StringUtils.isEmpty(imgUrl1)) {
-                imageLink = new ImageLink(imgUrl1, imgUrl2);
-            } else if (!StringUtils.isEmpty(imgUrl3)) {
-                imageLink = new ImageLink(imgUrl3, imgUrl4);
-            } else if (!StringUtils.isEmpty(imgUrl5)) {
-                imageLink = new ImageLink(imgUrl5, imgUrl5);
-            }
+
+        Html pageHtml = getHtml(html);
+        List<Selectable> imgSelectables = pageHtml.$("img").nodes();
+        for (Selectable imgSelectable : imgSelectables) {
+            String newImgSrc = getRealImgUrl(imgSelectable);
+            imageLink = new ImageLink(newImgSrc);
             imageLinks.add(imageLink);
         }
         return imageLinks;
+    }
+
+    private static Html getHtml(String html) {
+        Page page = new Page();
+        page.setRequest(new Request(""));
+        page.setRawText(html);
+        return page.getHtml();
     }
 }

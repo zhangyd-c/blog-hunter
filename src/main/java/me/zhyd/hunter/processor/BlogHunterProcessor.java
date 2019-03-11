@@ -21,12 +21,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class BlogHunterProcessor extends HunterProcessor {
 
-    private BlogHunterProcessor() {
-        super();
-    }
-
     public BlogHunterProcessor(String url, boolean convertImage) {
         super(url, convertImage);
+    }
+
+    public BlogHunterProcessor(String url, boolean convertImage, HunterPrintWriter writer) {
+        super(url, convertImage, writer);
     }
 
     public BlogHunterProcessor(HunterConfig config) {
@@ -55,7 +55,7 @@ public class BlogHunterProcessor extends HunterProcessor {
     public CopyOnWriteArrayList<VirtualArticle> execute() {
         List<String> errors = this.validateModel(config);
         if (CollectionUtils.isNotEmpty(errors)) {
-            writer.print("[hunter] 校验不通过！请依据下方提示，检查输入参数是否正确......");
+            writer.print("校验不通过！请依据下方提示，检查输入参数是否正确......");
             for (String error : errors) {
                 writer.print(">> " + error);
             }

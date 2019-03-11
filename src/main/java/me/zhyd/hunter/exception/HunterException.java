@@ -1,5 +1,7 @@
 package me.zhyd.hunter.exception;
 
+import me.zhyd.hunter.consts.HunterConsts;
+
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -8,10 +10,10 @@ package me.zhyd.hunter.exception;
 public class HunterException extends RuntimeException {
 
     public HunterException(String message) {
-        super(message);
+        super(HunterConsts.LOG_PREFIX + message);
     }
 
     public HunterException(String message, Throwable cause) {
-        super(message, cause);
+        super(HunterConsts.LOG_PREFIX + message, cause);
     }
 }

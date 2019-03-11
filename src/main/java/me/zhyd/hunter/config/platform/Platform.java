@@ -8,13 +8,12 @@ import me.zhyd.hunter.util.PlatformUtil;
  * @since 1.8
  */
 public enum Platform {
-    CNBLOGS("cnblogs", "cnblogs.com", CnblogsPlatform.class),
     CSDN("csdn", "csdn.net", CsdnPlatform.class),
-    IMOOC("imooc", "imooc.com", ImoocPlatform.class),
     ITEYE("iteye", "iteye.com", IteyePlatform.class),
+    IMOOC("imooc", "imooc.com", ImoocPlatform.class),
+    CNBLOGS("cnblogs", "cnblogs.com", CnblogsPlatform.class),
     JUEJIN("juejin", "juejin.im", JuejinPlatform.class),
     V2EX("v2ex", "v2ex.com", V2exPlatform.class),
-    INFOQ("infoq", "infoq.cn", InfoqPlatform.class),
     ;
 
     private String platform;

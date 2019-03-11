@@ -1,6 +1,7 @@
 package me.zhyd.hunter.util;
 
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.hunter.consts.HunterConsts;
 
 import java.io.PrintWriter;
 
@@ -15,7 +16,6 @@ import java.io.PrintWriter;
 public class HunterPrintWriter {
 
     private String jsoupCallback = "<script>parent.printMessage('%s');</script>";
-
     private PrintWriter writer;
 
     public HunterPrintWriter() {
@@ -27,24 +27,24 @@ public class HunterPrintWriter {
      */
     public HunterPrintWriter(PrintWriter writer, String jsoupCallback) {
         this.writer = writer;
-        this.jsoupCallback = jsoupCallback;
+        if (null != jsoupCallback) {
+            this.jsoupCallback = jsoupCallback;
+        }
     }
 
     /**
-     * @param writer        输出流
+     * @param writer 输出流
      */
     public HunterPrintWriter(PrintWriter writer) {
-        this.writer = writer;
+        this(writer, null);
     }
 
     public HunterPrintWriter print(String... msgs) {
-        if (null == writer) {
-            for (String msg : msgs) {
-                log.info(msg);
-            }
-            return this;
-        }
         for (String msg : msgs) {
+            if (!msg.equals("shutdown")) {
+                msg = HunterConsts.LOG_PREFIX + msg;
+            }
+
             log.info(msg);
             if (null != writer) {
                 writer.print(String.format(this.jsoupCallback, msg));

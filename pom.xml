@@ -48,6 +48,7 @@
         <jsoup.version>1.10.2</jsoup.version>
         <hibernate.validator.version>6.0.9.Final</hibernate.validator.version>
         <tomcat.version>8.5.24</tomcat.version>
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -83,11 +84,6 @@
             <version>${webmagic.version}</version>
         </dependency>
         <dependency>
-            <groupId>us.codecraft</groupId>
-            <artifactId>webmagic-selenium</artifactId>
-            <version>${webmagic.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
@@ -112,7 +108,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 

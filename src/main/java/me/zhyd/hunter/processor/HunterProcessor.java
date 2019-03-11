@@ -65,6 +65,13 @@ public abstract class HunterProcessor implements PageProcessor {
         this(HunterConfigContext.getHunterConfig(url).setConvertImg(convertImage));
     }
 
+    HunterProcessor(String url, boolean convertImage, HunterPrintWriter writer) {
+        this(HunterConfigContext.getHunterConfig(url).setConvertImg(convertImage));
+        if (writer != null) {
+            this.writer = writer;
+        }
+    }
+
     /**
      * 程序入口方法
      *
@@ -150,13 +157,14 @@ public abstract class HunterProcessor implements PageProcessor {
         virtualArticle.setDescription(CommonUtil.getRealDescription(virtualArticle.getDescription(), virtualArticle.getContent()))
                 .setKeywords(CommonUtil.getRealKeywords(virtualArticle.getKeywords()));
         if (this.config.isConvertImg()) {
+            virtualArticle.setContent(CommonUtil.formatHtml(virtualArticle.getContent()));
             virtualArticle.setImageLinks(CommonUtil.getAllImageLink(virtualArticle.getContent()));
         }
         if (CollectionUtils.isEmpty(virtualArticle.getTags())) {
             virtualArticle.setTags(Collections.singletonList("其他"));
         }
         virtualArticles.add(virtualArticle);
-        writer.print(String.format("[ hunter ]  <a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", virtualArticle.getSource(), title, virtualArticle.getAuthor(), virtualArticle.getReleaseDate()));
+        writer.print(String.format("<a href=\"%s\" target=\"_blank\">%s</a> -- %s -- %s", virtualArticle.getSource(), title, virtualArticle.getAuthor(), virtualArticle.getReleaseDate()));
     }
 
     public HunterConfig getConfig() {

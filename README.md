@@ -169,6 +169,10 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 16:58:46,565  INFO HunterPrintWriter:38 - [ hunter ]  <a href="https://www.imooc.com/article/276553" target="_blank">大神云集——Redis命令实现源码分析</a> -- 慕课网官方_运营中心 -- 2019-01-30 15:21:00
 ```
 
+**注意**
+
+部分网站没有配置`Keywords`，所以在运行单元测试时如果碰到`Keywords`内容为空，可以忽略。如果是`title`、`content`等内容为空，请检查配置文件中的`xpath`匹配规则是否正确。
+
 更多使用方式请参考文档...
 
 ## 配置信息
@@ -202,7 +206,6 @@ CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
 |  convertImg  |  是否转存图片  |  bool  |  -  |  ×  |  当选择true时会自动过滤原文中的img链接并返回，调用端可选择将图片下载后替换掉原来的图片 |
 |  proxyList  |  代理的列表  |  list  |  -  |  ×  |  保留字段，暂时无用 |
 |  proxyType  |  代理的类型  |  enum  |  -  |  ×  |  保留字段，暂时无用 |
-
 
 ## 交流
 
