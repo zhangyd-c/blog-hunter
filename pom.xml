@@ -6,11 +6,11 @@
 
     <groupId>me.zhyd.hunter</groupId>
     <artifactId>blog-hunter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <name>blog-hunter</name>
     <url>https://github.com/zhangyd-c/blog-hunter</url>
-    <description>博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金和V2EX等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</description>
+    <description>博客猎手，基于webMagic的博客爬取工具，支持慕课、csdn、iteye、cnblogs、掘金、V2EX 和开源中国等各大主流博客平台。博客千万篇，版权第一条。狩猎不规范，亲人两行泪。</description>
 
     <licenses>
         <license>
