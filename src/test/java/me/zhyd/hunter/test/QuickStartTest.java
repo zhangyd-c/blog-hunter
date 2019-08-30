@@ -82,6 +82,7 @@ public class QuickStartTest {
         this.single("https://www.cnblogs.com/zhangyadong/p/oneblog.html", true);
         this.single("https://juejin.im/post/5c75d34851882564965edb23", true);
         this.single("https://www.v2ex.com/t/519648", true);
+        this.single("https://my.oschina.net/u/4007037/blog/3075219", true);
     }
 
     /**
@@ -217,6 +218,43 @@ public class QuickStartTest {
         HunterConfig config = HunterConfigContext.getHunterConfig(Platform.V2EX);
         config.setEntryUrls("https://www.v2ex.com/member/Evernote")
                 .addEntryUrl("https://www.v2ex.com/member/ityouknow")
+                // 设置程序退出的方式
+                .setExitWay(ExitWayEnum.DURATION)
+                // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
+                .setCount(120);
+        HunterProcessor hunter = new BlogHunterProcessor(config);
+        CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        if (null == list || list.isEmpty()) {
+            System.out.println("没获取到数据");
+        } else {
+            this.check(list);
+        }
+    }
+    /**
+     * 测试抓取oschina的文章列表
+     */
+    @Test
+    public void oschinaTest() {
+        HunterConfig config = HunterConfigContext.getHunterConfig(Platform.OSCHINA);
+        config.setUid("haitaohu")
+                // 设置程序退出的方式
+                .setExitWay(ExitWayEnum.URL_COUNT)
+                .setCount(5);
+        HunterProcessor hunter = new BlogHunterProcessor(config);
+        CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        if (null == list || list.isEmpty()) {
+            System.out.println("没获取到数据");
+        } else {
+            this.check(list);
+        }
+    }
+    /**
+     * 测试抓取oschina的文章列表，自定义抓取规则
+     */
+    @Test
+    public void oschinaTest2() {
+        HunterConfig config = HunterConfigContext.getHunterConfig(Platform.V2EX);
+        config.setEntryUrls("https://my.oschina.net/haitaohu")
                 // 设置程序退出的方式
                 .setExitWay(ExitWayEnum.DURATION)
                 // 设定抓取120秒， 如果所有文章都被抓取过了，则会提前停止
