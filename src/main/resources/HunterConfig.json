@@ -97,5 +97,22 @@
     "entryUrls": [
       "https://www.v2ex.com/member/{uid}"
     ]
+  },
+  "oschina": {
+    "domain": "oschina.net",
+    "titleRegex": "//h2[@class=header]/text()",
+    "authorRegex": "//a[@class=__user]/span/html()",
+    "releaseDateRegex": "//div[@class=item]/text()",
+    "contentRegex": "//div[@class=content]/html()",
+    "tagRegex": "//div[@class=article-detail]/div[@class=tags]/a/html()",
+    "targetLinksRegex": "https://my.oschina.net/.*/blog/[0-9]{1,10}",
+    "header": [
+      "Host=my.oschina.net",
+      "Referer=https://my.oschina.net"
+    ],
+    "entryUrls": [
+      "https://my.oschina.net/{uid}",
+      "https://my.oschina.net/u/{uid}"
+    ]
   }
 }
