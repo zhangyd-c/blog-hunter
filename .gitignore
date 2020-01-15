@@ -170,3 +170,15 @@ hs_err_pid*
 /target/apidocs/me/zhyd/hunter/entity/VirtualArticle.html
 /target/apidocs/me/zhyd/hunter/entity/class-use/VirtualArticle.html
 /.idea/dictionaries/yadon.xml
+/.idea/.gitignore
+/target/blog-hunter-1.0.3.jar.asc
+/target/blog-hunter-1.0.3.jar.asc.asc
+/target/blog-hunter-1.0.3.pom
+/target/blog-hunter-1.0.3.pom.asc
+/target/blog-hunter-1.0.3.pom.asc.asc
+/target/blog-hunter-1.0.3-javadoc.jar.asc
+/target/blog-hunter-1.0.3-javadoc.jar.asc.asc
+/target/blog-hunter-1.0.3-sources.jar.asc
+/target/blog-hunter-1.0.3-sources.jar.asc.asc
+/target/apidocs/me/zhyd/hunter/config/platform/class-use/OschinaPlatform.html
+/target/apidocs/me/zhyd/hunter/config/platform/OschinaPlatform.html
