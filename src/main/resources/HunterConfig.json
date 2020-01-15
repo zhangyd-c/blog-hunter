@@ -20,7 +20,7 @@
     "domain": "blog.csdn.net",
     "titleRegex": "//h1[@class=title-article]/html()",
     "authorRegex": "//a[@class=follow-nickName]/html()",
-    "releaseDateRegex": "//div[@class=article-bar-top]/span[@class=time]/html()",
+    "releaseDateRegex": "//div[@class=article-bar-top]/span[@class=time]/html()/regex('\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}')",
     "contentRegex": "//div[@id=content_views]/html()",
     "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
     "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
