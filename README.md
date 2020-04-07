@@ -193,7 +193,19 @@ spider.stop();
 ## 配置信息
 
 |  字段  |  释义  |  数据类型  |  默认  |  必填  |  备注  |
-| :------------: | :------------: | :------------: | :------------: | :------------: | :------------ |
+| :------------ | :------------: | :------------: | :------------: | :------------: | :------------ |
+|  resolver  |  针对每个`xxRegex`提供的解析器，可以通过该配置对单个属性指定提取规则  |  string  |  -  |  x  |  -  |
+|  resolver.releaseDate  |  针对`releaseDate`提供的解析器  |  Object  |  -  |  x  |  -  |
+|  resolver.releaseDate.type  |  解析器类型，可选：regex、xpath，默认为xpath，并且当type不等于regex时，直接取xpath  |  string  |  `xpath`  |  x  |  -  |
+|  resolver.releaseDate.clazz  |  需要处理的字段类类型，一般为数字类型，比如java.lang.Long、java.lang.Integer、java.lang.Float、java.lang.Double  |  string  |  -  |  x  |  -  |
+|  resolver.releaseDate.operator  |  操作符，支持简单的`=-*/`操作，如果`type=regex`并且`clazz=数字类型`，则按照`operator`进行计算  |  string  |  -  |  x  |  -  |
+|  resolver.title  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.content  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.author  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.targetLinks  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.tag  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.keywords  |  同上  |  Object  |  -  |  x  |  -  |
+|  resolver.description  |  同上  |  Object  |  -  |  x  |  -  |
 |  titleRegex  |  标题的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
 |  contentRegex  |  内容的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
 |  releaseDateRegex  |  发布日期的匹配规则(`xpath`)  |  string  |  -  |  √  |  -  |
