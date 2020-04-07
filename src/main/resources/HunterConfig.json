@@ -114,5 +114,23 @@
       "https://my.oschina.net/{uid}",
       "https://my.oschina.net/u/{uid}"
     ]
+  },
+  ,
+  "jianshu": {
+    "domain": "jianshu.com",
+    "titleRegex": "//h1[@class=_1RuRku]/text()",
+    "authorRegex": "//span[@class=_22gUMi]/html()",
+    "releaseDateRegex": "//time/text()",
+    "contentRegex": "//article[@class=_2rhmJa]/html()",
+    "tagRegex": "//div",
+    "targetLinksRegex": "/p/[0-9a-zA-Z]{1,15}",
+    "header": [
+      "Host=www.jianshu.com",
+      "Referer=https://www.jianshu.com/p/{uid}"
+    ],
+    "entryUrls": [
+      "https://www.jianshu.com/p/{uid}",
+      "https://www.jianshu.com/u/{uid}"
+    ]
   }
 }

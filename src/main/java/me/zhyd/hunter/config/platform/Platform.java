@@ -15,6 +15,7 @@ public enum Platform {
     JUEJIN("juejin", "juejin.im", JuejinPlatform.class),
     V2EX("v2ex", "v2ex.com", V2exPlatform.class),
     OSCHINA("oschina", "oschina.net", OschinaPlatform.class),
+    JIANSHU("jianshu","jianshu.com",JianshuPlatform.class)
     ;
 
     private String platform;
