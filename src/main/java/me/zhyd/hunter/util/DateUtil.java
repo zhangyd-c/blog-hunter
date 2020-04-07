@@ -1,7 +1,5 @@
 package me.zhyd.hunter.util;
 
-import me.zhyd.hunter.exception.HunterException;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +37,9 @@ public class DateUtil extends cn.hutool.core.date.DateUtil {
         if (null == originalDateObj) {
             return null;
         }
+        if (originalDateObj instanceof Long || originalDateObj instanceof Integer) {
+            return new Date(Long.parseLong(String.valueOf(originalDateObj)));
+        }
         String originalDateStr = String.valueOf(originalDateObj);
         originalDateStr = originalDateStr.replace("T", " ").replace("Z", "");
         String pattern = null;
@@ -49,7 +50,15 @@ public class DateUtil extends cn.hutool.core.date.DateUtil {
             if (originalDateStr.split("/")[0].length() == 2) {
                 pattern = containsSemicolon ? (originalDateStr.split("/").length == 2 ? PATTERN15 : PATTERN8) : PATTERN7;
             } else {
-                pattern = containsSemicolon ? PATTERN1 : PATTERN2;
+                if (containsSemicolon) {
+                    if (originalDateStr.split(":").length == 2) {
+                        pattern = PATTERN16;
+                    } else {
+                        pattern = PATTERN1;
+                    }
+                } else {
+                    pattern = PATTERN2;
+                }
             }
         } else if (originalDateStr.contains("-")) {
             if (originalDateStr.split("-")[0].length() == 2) {

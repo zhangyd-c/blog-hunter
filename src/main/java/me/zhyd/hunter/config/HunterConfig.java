@@ -95,6 +95,11 @@ public class HunterConfig {
      */
     private ProxyType proxyType = ProxyType.CUSTOM;
 
+    /**
+     * 解析器配置，针对每个字段，都可以配置单独的解析器，参考{@link HunterResolver}
+     */
+    private HunterResolverConfig resolver = new HunterResolverConfig();
+
     public HunterConfig() {
     }
 
@@ -295,6 +300,11 @@ public class HunterConfig {
 
     public HunterConfig setSingle(boolean single) {
         this.single = single;
+        return this;
+    }
+
+    public HunterConfig setResolver(HunterResolverConfig resolver) {
+        this.resolver = resolver;
         return this;
     }
 

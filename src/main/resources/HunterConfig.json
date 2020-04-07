@@ -34,7 +34,7 @@
   },
   "iteye": {
     "domain": "{uid}.iteye.com",
-    "titleRegex": "//div[@class=blog_title]/h3/a/html()",
+    "titleRegex": "//div[@class=blog_title]/h3/text()",
     "authorRegex": "//div[@id=blog_owner_name]/html()",
     "releaseDateRegex": "//div[@class=blog_bottom]/ul/li[1]/html()",
     "contentRegex": "//div[@class=iteye-blog-content-contain]/html()",
@@ -99,10 +99,16 @@
     ]
   },
   "oschina": {
+    "resolver": {
+      "releaseDate": {
+        "type": "regex",
+        "clazz": "java.lang.Long"
+      }
+    },
     "domain": "oschina.net",
     "titleRegex": "//h2[@class=header]/text()",
     "authorRegex": "//a[@class=__user]/span/html()",
-    "releaseDateRegex": "//div[@class=item]/text()",
+    "releaseDateRegex": ".*发布于 ([0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}).*",
     "contentRegex": "//div[@class=content]/html()",
     "tagRegex": "//div[@class=article-detail]/div[@class=tags]/a/html()",
     "targetLinksRegex": "https://my.oschina.net/.*/blog/[0-9]{1,10}",
@@ -115,12 +121,18 @@
       "https://my.oschina.net/u/{uid}"
     ]
   },
-  ,
   "jianshu": {
+    "resolver": {
+      "releaseDate": {
+        "type": "regex",
+        "clazz": "java.lang.Long",
+        "operator": "* 1000"
+      }
+    },
     "domain": "jianshu.com",
     "titleRegex": "//h1[@class=_1RuRku]/text()",
     "authorRegex": "//span[@class=_22gUMi]/html()",
-    "releaseDateRegex": "//time/text()",
+    "releaseDateRegex": ".*\"first_shared_at\":([0-9]+),.*",
     "contentRegex": "//article[@class=_2rhmJa]/html()",
     "tagRegex": "//div",
     "targetLinksRegex": "/p/[0-9a-zA-Z]{1,15}",

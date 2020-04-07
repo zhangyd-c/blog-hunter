@@ -78,7 +78,7 @@ public class QuickStartTest {
     public void singleTest() {
         this.single("https://www.imooc.com/article/259921", true);
         this.single("https://blog.csdn.net/u011197448/article/details/83901306", true);
-        this.single("https://843977358.iteye.com/blog/2317810", true);
+        this.single("https://www.iteye.com/blog/843977358-2317810", true);
         this.single("https://www.cnblogs.com/zhangyadong/p/oneblog.html", true);
         this.single("https://juejin.im/post/5c75d34851882564965edb23", true);
         this.single("https://www.v2ex.com/t/519648", true);
