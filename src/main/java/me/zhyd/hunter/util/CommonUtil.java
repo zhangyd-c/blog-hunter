@@ -78,6 +78,9 @@ public class CommonUtil {
             if (StringUtils.isEmpty(realImgUrl)) {
                 realImgUrl = selectable.xpath("//img/@src").get();
             }
+            if (StringUtils.isEmpty(realImgUrl)){
+                realImgUrl = selectable.xpath("//img/@data-original-src").get();
+            }
         }
         if (StringUtils.isNotEmpty(realImgUrl)) {
             if (realImgUrl.contains("?")) {

@@ -83,6 +83,8 @@ public class QuickStartTest {
         this.single("https://juejin.im/post/5c75d34851882564965edb23", true);
         this.single("https://www.v2ex.com/t/519648", true);
         this.single("https://my.oschina.net/u/4007037/blog/3075219", true);
+        this.single("https://www.jianshu.com/p/f33b0b5fa80c", true);
+
     }
 
     /**
@@ -261,6 +263,30 @@ public class QuickStartTest {
                 .setCount(120);
         HunterProcessor hunter = new BlogHunterProcessor(config);
         CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        if (null == list || list.isEmpty()) {
+            System.out.println("没获取到数据");
+        } else {
+            this.check(list);
+        }
+    }
+
+    /**
+     * 测试抓取jianshu的文章列表。按照程序运行的时间（s）控制程序停止，并且手动指定程序运行的时间
+     */
+    @Test
+    public void jianshuTest() {
+        HunterConfig config = HunterConfigContext.getHunterConfig(Platform.JIANSHU);
+        // 设置用户的id
+        config.setUid("c790f6e8eba5")
+                // 设置程序退出的方式
+                .setExitWay(ExitWayEnum.DURATION)
+                // 根据ExitWay设置，当ExitWay = URL_COUNT时， count表示待抓取的链接个数；当ExitWay = DURATION时， count表示爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响；当ExitWay = default时，程序不做限制，抓取所有匹配到的文章，“慎用”
+                // 如果不手动设置该值， 则取ExitWayEnum中默认的数量，URL_COUNT(10)，DURATION(60)
+                .setCount(10);
+        HunterProcessor hunter = new BlogHunterProcessor(config);
+        System.out.println("程序开始执行：" + new Date());
+        CopyOnWriteArrayList<VirtualArticle> list = hunter.execute();
+        System.out.println("程序执行完毕：" + new Date());
         if (null == list || list.isEmpty()) {
             System.out.println("没获取到数据");
         } else {
