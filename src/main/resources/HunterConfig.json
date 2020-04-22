@@ -115,7 +115,6 @@
       "https://my.oschina.net/u/{uid}"
     ]
   },
-  ,
   "jianshu": {
     "domain": "jianshu.com",
     "titleRegex": "//h1[@class=_1RuRku]/text()",
