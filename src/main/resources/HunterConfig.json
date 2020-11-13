@@ -99,18 +99,12 @@
     ]
   },
   "oschina": {
-    "resolver": {
-      "releaseDate": {
-        "type": "regex",
-        "clazz": "java.lang.Long"
-      }
-    },
     "domain": "oschina.net",
-    "titleRegex": "//h2[@class=header]/text()",
-    "authorRegex": "//a[@class=__user]/span/html()",
-    "releaseDateRegex": ".*发布于 ([0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}).*",
+    "titleRegex": "//h1[@class=article-box__title]/a/text()",
+    "authorRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[2]/a/html()",
+    "releaseDateRegex": "//div[@class=article-box__meta]/div[@class=item-list]/div[4]/html()",
     "contentRegex": "//div[@class=content]/html()",
-    "tagRegex": "//div[@class=article-detail]/div[@class=tags]/a/html()",
+    "tagRegex": "//div[@class=tags-box]/div[@class=tags-box__inner]/a/html()",
     "targetLinksRegex": "https://my.oschina.net/.*/blog/[0-9]{1,10}",
     "header": [
       "Host=my.oschina.net",
