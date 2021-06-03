@@ -219,3 +219,5 @@ hs_err_pid*
 /.idea/libraries/Maven__us_codecraft_webmagic_extension_0_7_3.xml
 /.idea/libraries/Maven__us_codecraft_xsoup_0_3_1.xml
 /.idea/modules.xml
+/.idea/jarRepositories.xml
+/.idea/libraries/Maven__com_alibaba_fastjson_1_2_76.xml

@@ -118,7 +118,7 @@ public class QuickStartTest {
         // 设置用户的id
         config.setUid("u011197448")
                 // 设置程序退出的方式
-                .setExitWay(ExitWayEnum.DURATION)
+                .setExitWay(ExitWayEnum.URL_COUNT)
                 // 根据ExitWay设置，当ExitWay = URL_COUNT时， count表示待抓取的链接个数；当ExitWay = DURATION时， count表示爬虫运行的时间，理想状态时1s抓取一条，受实际网速影响；当ExitWay = default时，程序不做限制，抓取所有匹配到的文章，“慎用”
                 // 如果不手动设置该值， 则取ExitWayEnum中默认的数量，URL_COUNT(10)，DURATION(60)
                 .setCount(10);
