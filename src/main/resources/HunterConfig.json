@@ -23,7 +23,7 @@
     "releaseDateRegex": "//div[@class=article-bar-top]/div[@class='bar-content']/span[@class=time]/html()",
     "contentRegex": "//div[@id=content_views]/html()",
     "tagRegex": "//span[@class=artic-tag-box]/a[@class=tag-link]/html()",
-    "targetLinksRegex": ".*blog\\.csdn\\.net/{uid}/article/details/[0-9a-zA-Z]{1,15}",
+    "targetLinksRegex": "(((http|ftp|https):\\/\\/[0-9a-zA-Z]{1,15}.blog.csdn.net/article/details/[0-9a-zA-Z]{1,15})|((http|ftp|https):\\/\\/blog.csdn.net/{uid}/article/details/[0-9a-zA-Z]{1,15}))",
     "header": [
       "Host=blog.csdn.net",
       "Referer=https://blog.csdn.net/{uid}/article/list/1"
