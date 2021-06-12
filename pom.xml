@@ -42,7 +42,7 @@
         <maven.test.skip>true</maven.test.skip>
         <hutool-version>5.5.7</hutool-version>
         <lombok-version>1.18.20</lombok-version>
-        <junit-version>4.11</junit-version>
+        <junit-version>4.13.1</junit-version>
         <fastjson-version>[1.2.76,)</fastjson-version>
         <webmagic.version>0.7.3</webmagic.version>
         <jsoup.version>1.10.2</jsoup.version>
