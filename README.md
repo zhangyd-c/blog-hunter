@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22me.zhyd%22%20AND%20a:%22JustAuth%22">
-		<img src="https://img.shields.io/badge/Maven Central-1.0.3-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven Central-1.0.4-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/blog-hunter/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/License-MIT-yellow.svg" ></img>
@@ -37,7 +37,7 @@
 <dependency>
     <groupId>me.zhyd.hunter</groupId>
     <artifactId>blog-hunter</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 

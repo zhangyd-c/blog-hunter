@@ -6,7 +6,7 @@
 
     <groupId>me.zhyd.hunter</groupId>
     <artifactId>blog-hunter</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <name>blog-hunter</name>
     <url>https://github.com/zhangyd-c/blog-hunter</url>
@@ -40,10 +40,10 @@
         <maven-source.version>2.2.1</maven-source.version>
         <maven-compiler.version>3.7.0</maven-compiler.version>
         <maven.test.skip>true</maven.test.skip>
-        <hutool-version>4.1.21</hutool-version>
-        <lombok-version>1.18.4</lombok-version>
+        <hutool-version>5.5.7</hutool-version>
+        <lombok-version>1.18.20</lombok-version>
         <junit-version>4.11</junit-version>
-        <fastjson-version>[1.2.31,)</fastjson-version>
+        <fastjson-version>[1.2.76,)</fastjson-version>
         <webmagic.version>0.7.3</webmagic.version>
         <jsoup.version>1.10.2</jsoup.version>
         <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
